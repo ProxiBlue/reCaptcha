@@ -1,6 +1,6 @@
 reCaptcha
 =========
 
-Drop-In Replacement of Goggle ReCaptcha Of Magento's core Captcha system
+Drop-In Replacement of Magento's core Captcha system with Googles reCaptcha
 
 http://www.proxiblue.com.au/blog/magento-recaptcha/
