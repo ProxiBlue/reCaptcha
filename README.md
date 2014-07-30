@@ -1,4 +1,4 @@
 reCaptcha
 =========
 
-Clean implementation of Goggle ReCaptcha into magento
+Drop-In Replacement of Goggle ReCaptcha Of Magento's core Captcha system
