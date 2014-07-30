@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ProxiBlue_ReCaptcha>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends></depends>
+        </ProxiBlue_ReCaptcha>
+    </modules>
+</config>
