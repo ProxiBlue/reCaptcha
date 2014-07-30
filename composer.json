@@ -18,7 +18,8 @@
 			["app/code/community/ProxiBlue/ReCaptcha/", "app/code/community/ProxiBlue/ReCaptcha/"],
 			["app/etc/modules/ProxiBlue_ReCaptcha.xml", "app/etc/modules/ProxiBlue_ReCaptcha.xml"],
 			["app/design/frontend/base/default/template/captcha/recaptcha.phtml", "app/design/frontend/base/default/template/captcha/recaptcha.phtml"],
-			["skin/frontend/base/default/recaptcha", "skin/frontend/base/default/recaptcha"]
+			["skin/frontend/base/default/recaptcha", "skin/frontend/base/default/recaptcha"],
+			["app/design/adminhtml/default/default/template/captcha/recaptcha.phtml", "app/design/adminhtml/default/default/template/captcha/recaptcha.phtml"]
 		]
 	}
 }
