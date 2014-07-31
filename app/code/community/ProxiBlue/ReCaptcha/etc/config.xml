@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <config>
-    <modules>
-        <ProxiBlue_ReCaptcha>
+	<modules>
+		<ProxiBlue_ReCaptcha>
 			<version>1.0.0</version>
 			<depends>
 				<Mage_Captcha/>
 			</depends>
-        </ProxiBlue_ReCaptcha>
-    </modules>
-    <global>
-        <blocks>
-            <proxiblue_recaptcha>
-                <class>ProxiBlue_ReCaptcha_Block</class>
-            </proxiblue_recaptcha>
-        </blocks>
-        <helpers>
-            <proxiblue_recaptcha>
-                <class>ProxiBlue_ReCaptcha_Helper</class>
-            </proxiblue_recaptcha>
-        </helpers>
-        <models>
-            <proxiblue_recaptcha>
-                <class>ProxiBlue_ReCaptcha_Model</class>
+		</ProxiBlue_ReCaptcha>
+	</modules>
+	<global>
+		<blocks>
+			<proxiblue_recaptcha>
+				<class>ProxiBlue_ReCaptcha_Block</class>
+			</proxiblue_recaptcha>
+		</blocks>
+		<helpers>
+			<proxiblue_recaptcha>
+				<class>ProxiBlue_ReCaptcha_Helper</class>
+			</proxiblue_recaptcha>
+		</helpers>
+		<models>
+			<proxiblue_recaptcha>
+				<class>ProxiBlue_ReCaptcha_Model</class>
 			</proxiblue_recaptcha>
 			<captcha>
 				<rewrite>
@@ -36,6 +36,7 @@
 				<type>recaptcha</type>
 				<theme>clean</theme>
 				<language>en</language>
+				<mode>always</mode>
 			</captcha>
 		</admin>
 		<customer>
@@ -43,12 +44,7 @@
 				<type>recaptcha</type>
 				<theme>clean</theme>
 				<language>en</language>
-				<always_for>
-					<user_create>0</user_create>
-					<user_forgotpassword>0</user_forgotpassword>
-					<guest_checkout>0</guest_checkout>
-					<register_during_checkout>0</register_during_checkout>
-				</always_for>
+				<mode>always</mode>
 			</captcha>
 		</customer>
 	</default>
