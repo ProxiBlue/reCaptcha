@@ -14,7 +14,8 @@ class ProxiBlue_ReCaptcha_Model_Config_Themes {
 			array('value' => 'white', 'label' => 'White'),
 			array('value' => 'red', 'label' => 'Red'),
 			array('value' => 'blackglass', 'label' => 'Blackglass'),
-			array('value' => 'local', 'label' => 'Local')
+			array('value' => 'local', 'label' => 'Local'),
+            array('value' => 'New', 'label' => 'I am not a Robot')
 		);
 	}
 
