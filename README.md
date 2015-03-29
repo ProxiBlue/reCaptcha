@@ -10,10 +10,18 @@ Now supports the new 'I am not a robot' reCaptcha api.
 Making captcha work in magento 1.9 (RWD theme)
 ----------------------------------------------
 
-Captcha was disabld in teh RWD theme that magento 1.9 uses.
+Captcha was disabled in the RWD theme that magento 1.9 uses.
 
 This was done by simply placing an empty layout xml file into the theme.
 
-To make captcha work in magento 1.9, you must delete that file, or place a copy of the base captcha.xml file into your own theme layout folder.
+To make captcha work in magento 1.9: 
+
+* Place a copy of the base captcha.xml file into your own theme layout folder.
+
+   cp app/design/frontend/base/default/layout/captcha.xml app/design/frontend/YOUR_PACKAGE/THEME/layout/captcha.xml
+
+* or, delete that file from the rwd theme to fallback to base, 
+
+    rm app/design/frontend/rwd/default/layout/captcha.xml
 
 ref: http://magento.stackexchange.com/questions/40788/captcha-is-not-visible-at-frontend-login-register-form-for-rwd-theme
