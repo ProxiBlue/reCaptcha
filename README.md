@@ -25,3 +25,12 @@ To make captcha work in magento 1.9:
     rm app/design/frontend/rwd/default/layout/captcha.xml
 
 ref: http://magento.stackexchange.com/questions/40788/captcha-is-not-visible-at-frontend-login-register-form-for-rwd-theme
+
+
+Premium extentions:
+----------------------
+[Magento Free Gift Promotions](http://www.proxiblue.com.au/magento-gift-promotions.html "Magento Free Gift Promotions")
+The ultimate magento gift promotions module - clean code, and it just works!
+
+[Magento Dynamic Category Products](http://www.proxiblue.com.au/magento-dynamic-category-products.html "Magento Dynamic Category Products")
+Automate Category Product associations - assign any product to a category, using various rules.
