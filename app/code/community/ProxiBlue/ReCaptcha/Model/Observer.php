@@ -55,6 +55,30 @@ class ProxiBlue_ReCaptcha_Model_Observer
     }
 
     /**
+     * Check Captcha On Forgot Password Page
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Captcha_Model_Observer
+     */
+    public function checkReview($observer)
+    {
+        $formId = 'user_review';
+        $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+        if ($captchaModel->isRequired()) {
+            $controller = $observer->getControllerAction();
+            if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
+                Mage::getSingleton('customer/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                //$controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                //$refererUrl = $this->_getRefererUrl();
+                //$controller->getResponse()->setRedirect($refererUrl);
+                //invalidate the formkey, whoich will force the controller to redirect back to referer
+                $controller->getRequest()->setParam('form_key', 'Incorrect CAPTCHA.');
+            }
+        }
+        return $this;
+    }
+
+    /**
      * Get Captcha String
      *
      * @param Varien_Object $request
@@ -65,6 +89,30 @@ class ProxiBlue_ReCaptcha_Model_Observer
     {
         $captchaParams = $request->getPost(Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE);
         return $captchaParams[$formId];
+    }
+
+    /**
+     * Identify referer url via all accepted methods (HTTP_REFERER, regular or base64-encoded request param)
+     *
+     * @return string
+     */
+    protected function _getRefererUrl($controller)
+    {
+        $refererUrl = $controller->getRequest()->getServer('HTTP_REFERER');
+        if ($url = $controller->getRequest()->getParam(Mage_Core_Controller_Varien_Action::PARAM_NAME_REFERER_URL)) {
+            $refererUrl = $url;
+        }
+        if ($url = $controller->getRequest()->getParam(Mage_Core_Controller_Varien_Action::PARAM_NAME_BASE64_URL)) {
+            $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
+        }
+        if ($url = $controller->getRequest()->getParam(Mage_Core_Controller_Varien_Action::PARAM_NAME_URL_ENCODED)) {
+            $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
+        }
+
+        if (!$this->_isUrlInternal($refererUrl)) {
+            $refererUrl = Mage::app()->getStore()->getBaseUrl();
+        }
+        return $refererUrl;
     }
 
 }

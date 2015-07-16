@@ -2,7 +2,7 @@
 <config>
     <modules>
         <ProxiBlue_ReCaptcha>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
             <depends>
                 <Mage_Captcha/>
             </depends>
@@ -38,6 +38,14 @@
                     </captcha>
                 </observers>
             </controller_action_predispatch_contacts_index_post>
+            <controller_action_predispatch_review_product_post>
+                <observers>
+                    <captcha>
+                        <class>proxiblue_recaptcha/observer</class>
+                        <method>checkReview</method>
+                    </captcha>
+                </observers>
+            </controller_action_predispatch_review_product_post>
         </events>
     </global>
     <frontend>
@@ -72,6 +80,9 @@
                     <user_contact>
                         <label>Contact</label>
                     </user_contact>
+                    <user_review>
+                        <label>Reviews</label>
+                    </user_review>
                 </areas>
             </frontend>
         </captcha>
