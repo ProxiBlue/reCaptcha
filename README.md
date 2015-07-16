@@ -5,8 +5,9 @@ Drop-In Replacement of Magento's core Captcha system with Googles reCaptcha
 
 http://www.proxiblue.com.au/blog/magento-recaptcha/
 
-* Now supports placing captcha into contact us form
-* Now supports the new 'I am not a robot' reCaptcha api.
+* Supports placing captcha into contact us form
+* Supports the 'I am not a robot' reCaptcha api (now the default)
+* Support Product Review Captcha
 
 Making captcha work in magento 1.9 (RWD theme)
 ----------------------------------------------
@@ -30,12 +31,26 @@ ref: http://magento.stackexchange.com/questions/40788/captcha-is-not-visible-at-
 Contact Us Captcha
 ------------------
 
-* Enable in admin under Customer Configuration
-* Unfortunately the core contact us form does not have before or after form elements, so you will need to adjust your contact us form to display the capctha.
+* Enable in admin under Customer Configuration by selecting COntacts in available forms list
+* Unfortunately the core contact us form does not have before or after form elements block, so you will need to adjust your contact us form to display the capctha.
 
  Edit the contact form located here: 
  
     app/design/frontend/[rwd|base|your package]/[default|your theme]/template/contacts/form.phtml
+ 
+ place the following line into the form, anywhere between the form elements. 
+
+    <?php echo $this->getChildHtml('recaptcha'); ?>
+
+Product Review Us Captcha
+-------------------------
+
+* Enable in admin under Customer Configuration by selecting 'reviews' in available forms list
+* Unfortunately the core product review form does not have an after form elements block, so you will need to adjust your reviews form to display the capctha.
+
+ Edit the reviews form located here: 
+ 
+    app/design/frontend/[rwd|base|your package]/[default|your theme]/template/review/form.phtml
  
  place the following line into the form, anywhere between the form elements. 
 
