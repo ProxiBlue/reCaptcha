@@ -1,25 +1,44 @@
 {
-	"name": "proxiblue/recaptcha",
-	"type": "magento-module",
-	"license": "OSL-3.0",
-	"homepage": "https://github.com/ProxiBlue/reCaptcha",
-	"description": "Clean integration of Google reCaptcha to magento",
-	"authors": [
-		{
-			"name": "Lucas van Staden",
-			"email": "sales@proxiblue.com.au"
-		}
-	],
-	"require": {
-		"magento-hackathon/magento-composer-installer": "*"
-	},
-	"extra": {
-		"map": [
-			["app/code/community/ProxiBlue/ReCaptcha/", "app/code/community/ProxiBlue/ReCaptcha/"],
-			["app/etc/modules/ProxiBlue_ReCaptcha.xml", "app/etc/modules/ProxiBlue_ReCaptcha.xml"],
-			["app/design/frontend/base/default/template/captcha/recaptcha.phtml", "app/design/frontend/base/default/template/captcha/recaptcha.phtml"],
-			["skin/frontend/base/default/recaptcha", "skin/frontend/base/default/recaptcha"],
-			["app/design/adminhtml/default/default/template/captcha/recaptcha.phtml", "app/design/adminhtml/default/default/template/captcha/recaptcha.phtml"]
-		]
-	}
+  "name": "proxiblue/recaptcha",
+  "type": "magento-module",
+  "license": "OSL-3.0",
+  "homepage": "https://github.com/ProxiBlue/reCaptcha",
+  "description": "Clean integration of Google reCaptcha to magento",
+  "authors": [
+    {
+      "name": "Lucas van Staden",
+      "email": "sales@proxiblue.com.au"
+    }
+  ],
+  "require": {
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "extra": {
+    "map": [
+      [
+        "app/code/community/ProxiBlue/ReCaptcha/",
+        "app/code/community/ProxiBlue/ReCaptcha/"
+      ],
+      [
+        "app/etc/modules/ProxiBlue_ReCaptcha.xml",
+        "app/etc/modules/ProxiBlue_ReCaptcha.xml"
+      ],
+      [
+        "app/design/frontend/base/default/template/captcha/recaptcha.phtml",
+        "app/design/frontend/base/default/template/captcha/recaptcha.phtml"
+      ],
+      [
+        "skin/frontend/base/default/recaptcha",
+        "skin/frontend/base/default/recaptcha"
+      ],
+      [
+        "app/design/adminhtml/default/default/template/captcha/recaptcha.phtml",
+        "app/design/adminhtml/default/default/template/captcha/recaptcha.phtml"
+      ],
+      [
+        "app/design/frontend/base/default/layout/proxiblue_recaptcha.xml",
+        "app/design/frontend/base/default/layout/proxiblue_recaptcha.xml"
+      ]
+    ]
+  }
 }
