@@ -5,7 +5,8 @@ Drop-In Replacement of Magento's core Captcha system with Googles reCaptcha
 
 http://www.proxiblue.com.au/blog/magento-recaptcha/
 
-Now supports the new 'I am not a robot' reCaptcha api.
+* Now supports placing captcha into contact us form
+* Now supports the new 'I am not a robot' reCaptcha api.
 
 Making captcha work in magento 1.9 (RWD theme)
 ----------------------------------------------
@@ -25,6 +26,20 @@ To make captcha work in magento 1.9:
     rm app/design/frontend/rwd/default/layout/captcha.xml
 
 ref: http://magento.stackexchange.com/questions/40788/captcha-is-not-visible-at-frontend-login-register-form-for-rwd-theme
+
+Contact Us Captcha
+------------------
+
+* Enable in admin under Customer Configuration
+* Unfortunately the core contact us form does not have before or after form elements, so you will need to adjust your contact us form to display the capctha.
+
+ Edit the contact form located here: 
+ 
+    app/design/frontend/[rwd|base|your package]/[default|your theme]/template/contacts/form.phtml
+ 
+ place the following line into the form, anywhere between the form elements. 
+
+    <?php echo $this->getChildHtml('recaptcha'); ?>
 
 
 Our Premium extensions:
