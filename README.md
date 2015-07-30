@@ -42,6 +42,38 @@ Contact Us Captcha
 
     <?php echo $this->getChildHtml('recaptcha'); ?>
 
+Unfortunately magento core templates do not accomodate reloading teh posted form data, back into the contacts form.
+This means that if the captcha was incorrect, the user will be given a new blank form.
+This is obviously not ideal.
+
+The captcha extension places the form data into the customer session, aptly named formdata, using the following line of code
+
+    $data = $controller->getRequest()->getPost();
+    Mage::getSingleton('customer/session')->setFormData($data);
+
+You can re-populate the form data using the information stored in the session. This will require you to make changes to the form.phtml file. It is really up to you, how you will retrieve the session data, and use it.
+As an example, you can do this at the top of the template form.phtml:
+
+    $formData = new Varien_Object();
+    $formData->setData(Mage::getSingleton('customer/session')->getFormData());
+   
+The posted data is now held in the Varien Object called $formData
+You can pre-populate the data as such:
+
+    $_firstname = ($formData->getFirstname())?$formData->getFirstname():$this->helper('contacts')->getFirstName();
+    $_lastname = ($formData->getLastname())?$formData->getLastname():$this->helper('contacts')->getLastName();
+    $_email = ($formData->getEmail())?$formData->getEmail():$this->helper('contacts')->getEmail();
+    $_telephone = ($formData->getTelephone())?$formData->getTelephone():'';
+    $_suburb = ($formData->getSuburb())?$formData->getSuburb():'';  
+    $_postcode = ($formData->getPostcode())?$formData->getPostcode():'';
+    $_comment = ($formData->getComment())?$formData->getComment():'';
+
+and in the template, simply echo out the values held in the definded variables:
+An example is as such:
+
+    <input name="firstname" id="firstname" title="<?php echo Mage::helper('contacts')->__('First Name') ?>" value="<?php echo $this->htmlEscape($_firstname) ?>" class="input-text required-entry" type="text" />
+
+
 Product Review Us Captcha
 -------------------------
 
