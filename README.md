@@ -42,16 +42,18 @@ Contact Us Captcha
 
     <?php echo $this->getChildHtml('recaptcha'); ?>
 
-Unfortunately magento core templates do not accomodate reloading teh posted form data, back into the contacts form.
+Unfortunately magento core templates do not accomodate reloading the posted form data.
 This means that if the captcha was incorrect, the user will be given a new blank form.
-This is obviously not ideal.
+Obviously not ideal.
 
-The captcha extension places the form data into the customer session, aptly named formdata, using the following line of code
+The captcha extension places the form data into the customer session, aptly named 'formData', using the following lines of code
 
     $data = $controller->getRequest()->getPost();
     Mage::getSingleton('customer/session')->setFormData($data);
 
-You can re-populate the form data using the information stored in the session. This will require you to make changes to the form.phtml file. It is really up to you, how you will retrieve the session data, and use it.
+You can re-populate the form data using the information stored in the session. 
+This will require you to make some changes to the form.phtml file. 
+It is really up to you how you will retrieve and use the session data.
 As an example, you can do this at the top of the template form.phtml:
 
     $formData = new Varien_Object();
