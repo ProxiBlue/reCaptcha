@@ -76,11 +76,11 @@ An example is as such:
     <input name="firstname" id="firstname" title="<?php echo Mage::helper('contacts')->__('First Name') ?>" value="<?php echo $this->htmlEscape($_firstname) ?>" class="input-text required-entry" type="text" />
 
 
-Product Review Us Captcha
+Product Review Captcha
 -------------------------
 
 * Enable in admin under Customer Configuration by selecting 'reviews' in available forms list
-* Unfortunately the core product review form does not have an after form elements block, so you will need to adjust your reviews form to display the capctha.
+* Unfortunately the core product review form does not have an after form elements block, so you will need to adjust your reviews form to display the captcha.
 
  Edit the reviews form located here: 
  
@@ -89,6 +89,53 @@ Product Review Us Captcha
  place the following line into the form, anywhere between the form elements. 
 
     <?php echo $this->getChildHtml('recaptcha'); ?>
+
+Captcha is still not appearing, even after I did the steps above!
+-----------------------------------------------------------------
+
+Some possibilities:
+
+* You are using a custom theme package, and the reCaptcha layout directive file is not loaded. 
+* You are using a custom theme and the fallback to the base theme is not picking up the  
+
+To fix this, simply copy the file `app/design/frontend/base/default/layout/proxiblue_recaptcha.xml` to your package or theme folder, which will be located something like such: `app/design/frontend/<PACKAGE_NAME>/<THEME NAME>/layout/proxiblue_recaptcha.xml`
+
+* You have directives in your custom theme that changes how the review and customer screen layouts are built.
+
+There can be quite a few ways that your custom theme/package changed this. The most common would be in your local.xml file, located at `app/design/frontend/<PACKAGE_NAME>/<THEME NAME>/layout/local.xml`
+In that file, locate the relevant sections as noted in the reCaptcha layout file (https://github.com/ProxiBlue/reCaptcha/blob/master/app/design/frontend/base/default/layout/proxiblue_recaptcha.xml)
+Insert into the layout sections the relevant reCaptcha parts.
+
+For example, if you have this section in your lcoal.xml file
+
+```
+<review_product_list>
+</review_product_list>
+```
+
+copy the entire section from teh reCaptcha layout over into that section.
+
+```
+<reference name="product.review.form">
+            <block type="captcha/captcha" name="recaptcha">
+                <action method="setFormId">
+                    <formId>user_review</formId>
+                </action>
+                <action method="setImgWidth">
+                    <width>230</width>
+                </action>
+                <action method="setImgHeight">
+                    <width>50</width>
+                </action>
+            </block>
+        </reference>
+</review_product_list>
+```
+
+If, you also have the following:  ```<reference name="product.review.form">``` then only copy the BLOCK definition part into that reference.
+
+
+
 
 
 Our Premium extensions:
