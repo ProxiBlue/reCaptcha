@@ -96,7 +96,7 @@ Captcha is still not appearing, even after I did the steps above!
 Some possibilities:
 
 * You are using a custom theme package, and the reCaptcha layout directive file is not loaded. 
-* You are using a custom theme and the fallback to the base theme is not picking up the  
+* You are using a custom theme and the fallback to the base theme is not picking up the layout file. 
 
 To fix this, simply copy the file `app/design/frontend/base/default/layout/proxiblue_recaptcha.xml` to your package or theme folder, which will be located something like such: `app/design/frontend/<PACKAGE_NAME>/<THEME NAME>/layout/proxiblue_recaptcha.xml`
 
@@ -113,7 +113,7 @@ For example, if you have this section in your lcoal.xml file
 </review_product_list>
 ```
 
-copy the entire section from teh reCaptcha layout over into that section.
+copy the entire section from the reCaptcha layout over into that section.
 
 ```
 <reference name="product.review.form">
