@@ -11,15 +11,15 @@ http://www.proxiblue.com.au/blog/magento-recaptcha/
 * Support Product Review Captcha
  
 Installing
-----------
+==========
 
 All:
-====
+----
 
 * if captcha is enabled, disable it. including for admin
 
 By GIT:
-=======
+-------
 
 * clone this repo
 * disable compilation if you use that.
@@ -28,7 +28,7 @@ By GIT:
 * re-enable compilation
 
 By Composer:
-===========
+------------
 
 * disable compilation
 
@@ -50,17 +50,23 @@ By Composer:
 * re-enable compilation
 
 By Magento Connect 1:
-=====================
+---------------------
 
 Check version number available via connect against what is in GIT. It is most likely that the connect package is dated, and it is prefered to install via composer or direct from git.
 
 Disabling:
----------
+==========
 
 * Disable compilation
 * Edit the file <magento root>/app/etc/modules/ProxiBlue_ReCaptcha.xml, and set the active to false.
 * Clear Cache
 * Enable compilation
+
+Setup:
+======
+
+* Obtain your site public key (Site Key) and private key (Secret Key) for your domain and recaptcha usage
+* Enter these in the admin settings for captcha.
 
 Making captcha work in magento 1.9 (RWD theme)
 ----------------------------------------------
