@@ -8,6 +8,58 @@ http://www.proxiblue.com.au/blog/magento-recaptcha/
 * Supports placing captcha into contact us form
 * Supports the 'I am not a robot' reCaptcha api (now the default)
 * Support Product Review Captcha
+ 
+Installing
+----------
+
+All:
+====
+
+* if camptcha is enabled, disable it, including for admin
+
+By GIT:
+=======
+
+* clone this repo
+* disable compilation if you use that.
+* copy the files from the repo into the base folder of your magento install
+* clear your cache
+* re-enable compilation
+
+By Composer:
+===========
+
+* disable compilation
+
+* Update the following to sections in your composer file:
+
+```
+   "require": {
+           "proxiblue/recaptcha":"*"
+      },
+   "repositories": [
+      {
+            "type": "vcs",
+                "url": "https://github.com/ProxiBlue/reCaptcha.git"
+        }
+    ],
+```
+
+* Clear cache
+* re-enable compilation
+
+By Magento Connect 1:
+=====================
+
+Check version number available via connect against what is in GIT. It is most likely that the connect package is dated, and it is prefered to install via composer or direct from git.
+
+Disabling:
+---------
+
+* Disable compilation
+* Edit the file <magento root>/app/etc/modules/ProxiBlue_ReCaptcha.xml, and set the active to false.
+* Clear Cache
+* Enable compilation
 
 Making captcha work in magento 1.9 (RWD theme)
 ----------------------------------------------
