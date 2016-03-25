@@ -5,6 +5,7 @@ Drop-In Replacement of Magento's core Captcha system with Googles reCaptcha
 
 http://www.proxiblue.com.au/blog/magento-recaptcha/
 
+* Supports all native magento captcha areas
 * Supports placing captcha into contact us form
 * Supports the 'I am not a robot' reCaptcha api (now the default)
 * Support Product Review Captcha
@@ -44,7 +45,7 @@ By Composer:
         }
     ],
 ```
-
+* Update composer: ```composer.phar update```
 * Clear cache
 * re-enable compilation
 
