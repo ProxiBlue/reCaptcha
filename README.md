@@ -16,7 +16,7 @@ Installing
 All:
 ====
 
-* if camptcha is enabled, disable it, including for admin
+* if captcha is enabled, disable it. including for admin
 
 By GIT:
 =======
