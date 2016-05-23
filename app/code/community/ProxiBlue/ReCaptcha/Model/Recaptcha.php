@@ -35,6 +35,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     protected $_theme = 'clean';
     protected $_private_key = null;
     protected $_public_key = null;
+    protected $_elementId = null;
 
 
     /**
@@ -149,5 +150,18 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
 
         return $response->getBody();
 
+    }
+
+    /**
+     * Create a unique form id
+     * https://github.com/ProxiBlue/reCaptcha/issues/2
+     * @return string
+     */
+    public function getElementId()
+    {
+        if (!$this->_elementId) {
+            $this->_elementId = 'recaptcha_html_element_' . trim($this->_formId) . '_' . rand(0, 1000000);
+        }
+        return $this->_elementId;
     }
 }
