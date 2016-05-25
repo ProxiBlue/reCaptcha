@@ -43,20 +43,23 @@
 
     </div>
 <?php elseif ($theme == 'New'): ?>
-    <div id="<?php echo $captcha->getElementId(); ?>" class='proxiblue-recaptcha'></div>
-    <?php if($this->canRenderJS()): ?>
+    <li id="<?php echo $captcha->getElementId(); ?>">
+        <div id="<?php echo $captcha->getElementId('image'); ?>" class='proxiblue-recaptcha'></div>
+    </li>
+    <?php if ($this->canRenderJS()): ?>
         <script type="text/javascript">
             var reCaptchaCallback = function () {
                 $$('.proxiblue-recaptcha').each(
-                    function(elm) {
+                    function (elm) {
                         grecaptcha.render(elm.id, {
-                            'sitekey' : '<?php echo $captcha->getPublicKey(); ?>', 
+                            'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
                         });
                     }
                 )
             };
         </script>
-        <script src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit" async defer></script>
+        <script src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit" async
+                defer></script>
     <?php endif; ?>
 <?php else: ?>
     <script type="text/javascript">

@@ -20,5 +20,4 @@ class ProxiBlue_ReCaptcha_Block_Captcha_Recaptcha extends Mage_Captcha_Block_Cap
         return false;
     }
 
-
 }

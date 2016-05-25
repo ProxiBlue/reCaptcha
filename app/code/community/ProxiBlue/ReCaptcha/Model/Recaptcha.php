@@ -35,7 +35,6 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     protected $_theme = 'clean';
     protected $_private_key = null;
     protected $_public_key = null;
-    protected $_elementId = null;
 
 
     /**
@@ -98,7 +97,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
             // is this the new 'I am not a robot'?
             if ($response = $request->getParam('g-recaptcha-response')) {
                 $path = ProxiBlue_ReCaptcha_Helper_Data::RECAPTCHA_SITEVERIFY_PATH;
-                $params = array('secret'   => $this->_private_key,
+                $params = array('secret' => $this->_private_key,
                                 'response' => $response
                 );
                 $result = $this->_sendRequest($path, $params);
@@ -108,8 +107,8 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
                 }
             } else {
                 $params = array('privatekey' => $this->_private_key,
-                                'challenge'  => $request->getParam('recaptcha_challenge_field'),
-                                'response'   => $request->getParam('recaptcha_response_field'),
+                                'challenge' => $request->getParam('recaptcha_challenge_field'),
+                                'response' => $request->getParam('recaptcha_response_field'),
                 );
 
                 $path = ProxiBlue_ReCaptcha_Helper_Data::RECAPTCHA_VERIFY_PATH;
@@ -157,11 +156,8 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
      * https://github.com/ProxiBlue/reCaptcha/issues/2
      * @return string
      */
-    public function getElementId()
+    public function getElementId($type = 'input')
     {
-        if (!$this->_elementId) {
-            $this->_elementId = 'recaptcha_html_element_' . trim($this->_formId) . '_' . rand(0, 1000000);
-        }
-        return $this->_elementId;
+        return 'captcha-' . $type . '-box-' . trim($this->_formId);
     }
 }
