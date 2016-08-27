@@ -30,4 +30,19 @@
             </block>
         </reference>
     </review_product_list>
+    <checkout_onepage_review translate="label">
+        <reference name="checkout.onepage.review.info.items.before">
+            <block type="captcha/captcha" name="recaptcha">
+                <action method="setFormId">
+                    <formId>checkout_review</formId>
+                </action>
+                <action method="setImgWidth">
+                    <width>230</width>
+                </action>
+                <action method="setImgHeight">
+                    <width>50</width>
+                </action>
+            </block>
+        </reference>
+    </checkout_onepage_review>
 </layout>

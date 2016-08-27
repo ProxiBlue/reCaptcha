@@ -1,28 +1,4 @@
 <?php
-/**
- * Magento Enterprise Edition
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Magento Enterprise Edition License
- * that is bundled with this package in the file LICENSE_EE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://www.magentocommerce.com/license/enterprise-edition
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    Mage
- * @package     Mage_Captcha
- * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
- * @license     http://www.magentocommerce.com/license/enterprise-edition
- */
 
 /**
  * Captcha Observer
@@ -34,9 +10,10 @@
 class ProxiBlue_ReCaptcha_Model_Observer
 {
     /**
-     * Check Captcha On Forgot Password Page
+     * Check Captcha On Contact Us
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return Mage_Captcha_Model_Observer
      */
     public function checkContact($observer)
@@ -47,17 +24,22 @@ class ProxiBlue_ReCaptcha_Model_Observer
             $controller = $observer->getControllerAction();
             if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
                 Mage::getSingleton('customer/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                // insert form data to session, allowing to re-populate the contact us form
+                $data = $controller->getRequest()->getPost();
+                Mage::getSingleton('customer/session')->setFormData($data);
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/'));
             }
         }
+
         return $this;
     }
 
     /**
-     * Check Captcha On Forgot Password Page
+     * Check Captcha On Product Reviews Page
      *
      * @param Varien_Event_Observer $observer
+     *
      * @return Mage_Captcha_Model_Observer
      */
     public function checkReview($observer)
@@ -70,10 +52,11 @@ class ProxiBlue_ReCaptcha_Model_Observer
                 Mage::getSingleton('core/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                 $data = $controller->getRequest()->getPost();
                 Mage::getSingleton('review/session')->setFormData($data);
-                if($this->isPre19()) {
+                if ($this->isOldMagento()) {
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                     if ($redirectUrl = Mage::getSingleton('review/session')->getRedirectUrl(true)) {
                         $controller->getResponse()->setRedirect($redirectUrl);
+
                         return $this;
                     }
                     $controller->getResponse()->setRedirect($this->_getRefererUrl($controller));
@@ -83,18 +66,20 @@ class ProxiBlue_ReCaptcha_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
     /**
-     * Test if this is a pre 1.9 install
+     * Test if this is an older magento
      *
      * @return boolean
      */
-    public function isPre19()
+    public function isOldMagento()
     {
+        $isEE = Mage::helper('core')->isModuleEnabled('Enterprise_Enterprise');
         $magentoVersion = Mage::getVersionInfo();
-        if ($magentoVersion['minor'] < 9) {
+        if ($magentoVersion['minor'] < 9 || ($isEE && $magentoVersion['minor'] < 13)) {
             return true;
         }
 
@@ -105,12 +90,14 @@ class ProxiBlue_ReCaptcha_Model_Observer
      * Get Captcha String
      *
      * @param Varien_Object $request
-     * @param string $formId
+     * @param string        $formId
+     *
      * @return string
      */
     protected function _getCaptchaString($request, $formId)
     {
         $captchaParams = $request->getPost(Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE);
+
         return $captchaParams[$formId];
     }
 
@@ -136,6 +123,7 @@ class ProxiBlue_ReCaptcha_Model_Observer
         if (!$this->_isUrlInternal($refererUrl)) {
             $refererUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         return $refererUrl;
     }
 
@@ -145,6 +133,7 @@ class ProxiBlue_ReCaptcha_Model_Observer
      *
      *
      * @param   string $url
+     *
      * @return  bool
      */
     protected function _isUrlInternal($url)
@@ -159,9 +148,9 @@ class ProxiBlue_ReCaptcha_Model_Observer
                 return true;
             }
         }
+
         return false;
     }
-
 
 
 }

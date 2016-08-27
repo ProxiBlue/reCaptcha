@@ -110,7 +110,7 @@
 							</depends>
 						</case_sensitive>
 						<public_key translate="label">
-							<label>Public Key</label>
+							<label>Site Key (Public Key)</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>10</sort_order>
 							<show_in_default>1</show_in_default>
@@ -121,7 +121,7 @@
 							</depends>
 						</public_key>
 						<private_key translate="label">
-							<label>Private Key</label>
+							<label>Secret Key (Private Key)</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>11</sort_order>
 							<show_in_default>1</show_in_default>
