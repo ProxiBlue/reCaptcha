@@ -78,7 +78,7 @@ class ProxiBlue_ReCaptcha_Model_Observer
                     }
                     $controller->getResponse()->setRedirect($this->_getRefererUrl($controller));
                 } else {
-                    //invalidate the formkey, whoich will force the controller to redirect back to referer
+                    //invalidate the formkey, which will force the controller to redirect back to referer
                     $controller->getRequest()->setParam('form_key', 'Incorrect CAPTCHA.');
                 }
             }
@@ -87,7 +87,7 @@ class ProxiBlue_ReCaptcha_Model_Observer
     }
 
     /**
-     * Test if this is a pre 1.6 install
+     * Test if this is a pre 1.9 install
      *
      * @return boolean
      */
