@@ -31,7 +31,7 @@
         </reference>
     </review_product_list>
     <checkout_onepage_review translate="label">
-        <reference name="checkout.onepage.review.info.items.before">
+        <reference name="checkout.onepage.review.info.items.after">
             <block type="captcha/captcha" name="recaptcha">
                 <action method="setFormId">
                     <formId>checkout_review</formId>
