@@ -65,7 +65,7 @@
                 )
             };
         </script>
-        <script src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit" async
+        <script src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>" async
                 defer></script>
     <?php endif; ?>
 <?php else: ?>
