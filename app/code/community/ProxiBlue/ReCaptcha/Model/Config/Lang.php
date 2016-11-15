@@ -17,6 +17,11 @@ class ProxiBlue_ReCaptcha_Model_Config_Lang {
 		array('value' => 'ru', 'label' => 'Russian'),
 		array('value' => 'es', 'label' => 'Spanish'),
 		array('value' => 'tr', 'label' => 'Turkish'),
+		array('value' => 'ar', 'label' => 'Arabic'),
+		array('value' => 'af', 'label' => 'Afrikaans'),
+		      array('value' => 'am', 'label' => 'Amharic'),
+		      array('value' => 'hy', 'label' => 'Armenian'),
+		      array('value' => 'it', 'label' => 'Italian')
 	);
 
 	public function toOptionArray() {
