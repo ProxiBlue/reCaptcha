@@ -9,7 +9,14 @@ http://www.proxiblue.com.au/blog/magento-recaptcha/
 * Supports placing captcha into contact us form
 * Supports the 'I am not a robot' reCaptcha api (now the default)
 * Support Product Review Captcha
- 
+
+Requirements
+============
+
+Core magento onepage checkout for reCaptcha in Checkout.
+There is no plans to extend this extension to ise 3rd party checkouts.
+Feel free to extend if you know how. PR welconed.
+
 Installing
 ==========
 
