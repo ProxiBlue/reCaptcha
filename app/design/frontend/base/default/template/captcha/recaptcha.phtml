@@ -49,9 +49,10 @@
     <?php if ($this->canRenderJS()): ?>
         <script type="text/javascript">
             var reCaptchaCallback = function () {
+                window.captchas = [];
                 $$('.proxiblue-recaptcha').each(
                     function (elm) {
-                        grecaptcha.render(elm.id, {
+                        var cpatchaId = grecaptcha.render(elm.id, {
                             'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
                             'callback': function (response) {
                                 // since there are multiple instances of the response text area, populate them all with this response.
@@ -61,12 +62,15 @@
                                 });
                             }
                         });
+                        window.captchas.push(cpatchaId);
                     }
                 )
             };
         </script>
-        <script src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>" async
-                defer></script>
+        <script
+            src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>"
+            async
+            defer></script>
     <?php endif; ?>
 <?php else: ?>
     <script type="text/javascript">
@@ -77,3 +81,8 @@
     </script>
     <script type="text/javascript" src="<?php echo $captcha->getUrl(); ?>"></script>
 <?php endif; ?>
+<script>document.observe('billing-request:completed', function (re,result) {
+        window.captchas.forEach(function(id) {
+            grecaptcha.reset(id);
+        });
+    });</script>
