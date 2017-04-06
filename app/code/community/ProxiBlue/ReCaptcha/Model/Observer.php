@@ -79,7 +79,7 @@ class ProxiBlue_ReCaptcha_Model_Observer
     {
         $isEE = Mage::helper('core')->isModuleEnabled('Enterprise_Enterprise');
         $magentoVersion = Mage::getVersionInfo();
-        if ($magentoVersion['minor'] < 9 || ($isEE && $magentoVersion['minor'] < 13)) {
+        if ($magentoVersion['minor'] < 9 || ($isEE && $magentoVersion['minor'] <= 13)) {
             return true;
         }
 
