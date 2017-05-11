@@ -48,6 +48,17 @@
             </controller_action_predispatch_review_product_post>
         </events>
     </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <ProxiBlue_ReCaptcha>
+                    <files>
+                        <default>ProxiBlue_ReCaptcha.csv</default>
+                    </files>
+                </ProxiBlue_ReCaptcha>
+            </modules>
+        </translate>
+    </adminhtml>
     <frontend>
         <layout>
             <updates>
@@ -56,6 +67,15 @@
                 </proxiblue_recaptcha>
             </updates>
         </layout>
+        <translate>
+            <modules>
+                <ProxiBlue_ReCaptcha>
+                    <files>
+                        <default>ProxiBlue_ReCaptcha.csv</default>
+                    </files>
+                </ProxiBlue_ReCaptcha>
+            </modules>
+        </translate>
     </frontend>
     <default>
         <admin>
