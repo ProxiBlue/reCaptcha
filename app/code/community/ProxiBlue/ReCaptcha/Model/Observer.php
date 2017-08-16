@@ -51,7 +51,9 @@ class ProxiBlue_ReCaptcha_Model_Observer
             if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
                 Mage::getSingleton('customer/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                 $data = $controller->getRequest()->getPost();
+                $data['form_key'] = 'Incorrect CAPTCHA.';
                 Mage::getSingleton('review/session')->setFormData($data);
+                Mage::getSingleton('customer/session')->setFormData($data);
                 if ($this->isOldMagento()) {
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                     if ($redirectUrl = Mage::getSingleton('review/session')->getRedirectUrl(true)) {
