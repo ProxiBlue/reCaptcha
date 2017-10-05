@@ -23,12 +23,18 @@ class ProxiBlue_ReCaptcha_Model_Observer
         if ($captchaModel->isRequired()) {
             $controller = $observer->getControllerAction();
             if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
-                Mage::getSingleton('customer/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                $request = $controller->getRequest();
+                $isAjax = $request->getParam('json');
                 // insert form data to session, allowing to re-populate the contact us form
                 $data = $controller->getRequest()->getPost();
                 Mage::getSingleton('customer/session')->setFormData($data);
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                $controller->getResponse()->setRedirect(Mage::getUrl('*/*/'));
+                if($isAjax) {
+                    $controller->getResponse()->setBody(Zend_Json::encode(array('error'=>Mage::helper('captcha')->__('Incorrect CAPTCHA.'))));
+                } else {
+                    Mage::getSingleton('customer/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $controller->getResponse()->setRedirect(Mage::getUrl('*/*/'));
+                }
             }
         }
 

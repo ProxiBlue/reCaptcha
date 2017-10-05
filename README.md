@@ -141,6 +141,57 @@ An example is as such:
 
     <input name="firstname" id="firstname" title="<?php echo Mage::helper('contacts')->__('First Name') ?>" value="<?php echo $this->htmlEscape($_firstname) ?>" class="input-text required-entry" type="text" />
 
+###Submitting Contact Us via AJAX
+
+From version 1.3.0, you can pass two additional params via an AJAX submitted form.
+The response form the module will then be a JSON string denoting if teh captcha failed.
+
+Example AJAX call to submit a contact us form:
+
+     $j.ajax({
+         url: $j('#contactForm').attr('action'),
+         type: 'POST',
+         data: {
+             help: $j("#help").val(),
+             firstname: $j("#firstname").val(),
+             lastname: $j("#lastname").val(),
+             email: $j("#email-address").val(),
+             telephone: $j("#telephone").val(),
+             suburb: $j("#suburb").val(),
+             postcode: $j("#postcode").val(),
+             comment: $j("#comment").val(),
+             about: $j("#about").val(),
+             consultant: $j("#consultant").val(),
+             json: 1,
+             gcr: $j("#g-recaptcha-response").val()
+         },
+         success: function (result, xhr) {
+             try {
+                 var result = jQuery.parseJSON(result);
+             } catch (err) {
+                 // fail silently as result was not JSON, so could be success
+             }
+             if(typeof result =='object') {
+                 if (result.error) {
+                     alert(result.error);
+                 }
+             } else {
+                 // assume a success as not capctha error
+                 // deal with any other form errors here.
+             }
+         },
+         error: function (xhr, err) {
+             alert(err);
+         }
+     });
+     event.preventDefault();
+     return false;
+
+Note the inclusion of two extra variables in the POST:
+
+     json: 1,
+     gcr: $j("#g-recaptcha-response").val()
+
 
 Product Review Captcha
 -------------------------
@@ -164,7 +215,13 @@ Some possibilities:
 * You are using a custom theme package, and the reCaptcha layout directive file is not loaded. 
 * You are using a custom theme and the fallback to the base theme is not picking up the layout file. 
 
-To fix this, simply copy the file `app/design/frontend/base/default/layout/proxiblue_recaptcha.xml` to your package or theme folder, which will be located something like such: `app/design/frontend/<PACKAGE_NAME>/<THEME NAME>/layout/proxiblue_recaptcha.xml`
+To fix this, simply copy the file 
+
+    app/design/frontend/base/default/layout/proxiblue_recaptcha.xml
+
+to your package or theme folder, which will be located something like such: 
+
+    app/design/frontend/<PACKAGE_NAME>/<THEME NAME>/layout/proxiblue_recaptcha.xml
 
 * You have directives in your custom theme that changes how the review and customer screen layouts are built.
 
@@ -201,13 +258,7 @@ copy the entire section from the reCaptcha layout over into that section.
 If, you also have the following:  ```<reference name="product.review.form">``` then only copy the BLOCK definition part into that reference.
 
 
-
-
-
 Our Premium extensions:
 ----------------------
-[Magento Free Gift Promotions](http://www.proxiblue.com.au/magento-gift-promotions.html "Magento Free Gift Promotions")
-The ultimate magento gift promotions module - clean code, and it just works!
-
 [Magento Dynamic Category Products](http://www.proxiblue.com.au/magento-dynamic-category-products.html "Magento Dynamic Category Products")
 Automate Category Product associations - assign any product to a category, using various rules.
