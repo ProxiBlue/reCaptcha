@@ -15,7 +15,7 @@ Requirements
 
 Core magento onepage checkout for reCaptcha in Checkout.
 There is no plans to extend this extension to ise 3rd party checkouts.
-Feel free to extend if you know how. PR welconed.
+Feel free to extend if you know how. PRs welcomed.
 
 Installing
 ==========
@@ -75,6 +75,23 @@ Setup:
 * Obtain your site public key (Site Key) and private key (Secret Key) for your domain and recaptcha usage
 * Enter these in the admin settings for captcha.
 
+V1 Captcha support dropped
+----------------------------------------------
+
+Since 1.4.0 all v1 captcha (pre I am not a Robot) has been removed. There is thus no longer a theme selection, as only I am not a Robot is supported.
+
+Disable / Enable form submit buttons
+------------------------------------
+
+From 1.4.0 you can add teh class 'enable-captcha-clicked' to any element and add the 'disabled' property to that element.
+After clicked, the element will be enabled.
+
+example:
+
+```html
+<button type="submit" class="btn btn-primary enable-captcha-clicked" disabled="disabled">Submit</button>
+```
+
 Making captcha work in magento 1.9 (RWD theme)
 ----------------------------------------------
 
@@ -108,7 +125,7 @@ Contact Us Captcha
 
     <?php echo $this->getChildHtml('recaptcha'); ?>
 
-Unfortunately magento core templates do not accomodate reloading the posted form data.
+Unfortunately magento core templates do not accommodate reloading the posted form data.
 This means that if the captcha was incorrect, the user will be given a new blank form.
 Obviously not ideal.
 

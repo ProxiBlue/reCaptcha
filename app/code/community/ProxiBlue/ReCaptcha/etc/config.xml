@@ -2,7 +2,7 @@
 <config>
     <modules>
         <ProxiBlue_ReCaptcha>
-            <version>1.3.0</version>
+            <version>1.4.0</version>
             <depends>
                 <Mage_Captcha/>
             </depends>
@@ -81,7 +81,7 @@
         <admin>
             <captcha>
                 <type>recaptcha</type>
-                <theme>clean</theme>
+                <theme>New</theme>
                 <language>en</language>
                 <mode>always</mode>
             </captcha>
@@ -89,7 +89,7 @@
         <customer>
             <captcha>
                 <type>recaptcha</type>
-                <theme>clean</theme>
+                <theme>New</theme>
                 <language>en</language>
                 <mode>always</mode>
             </captcha>

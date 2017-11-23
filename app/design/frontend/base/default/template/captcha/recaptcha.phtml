@@ -1,88 +1,42 @@
 <?php $captcha = $this->getCaptchaModel() ?>
 <?php $theme = $captcha->getTheme(); ?>
 
-<?php if ($theme == 'local'): ?>
-    <script>
-        var RecaptchaOptions = {
-            theme: 'custom',
-            lang: '<?php echo $captcha->getLanguage(); ?>',
-            custom_theme_widget: 'recaptcha_widget'
+<li id="<?php echo $captcha->getElementId(); ?>">
+    <div id="<?php echo $captcha->getElementId('image'); ?>" class='proxiblue-recaptcha'></div>
+</li>
+
+<?php if ($this->canRenderJS()): ?>
+    <script type="text/javascript">
+        var reCaptchaCallback = function () {
+            window.captchas = [];
+            $$('.proxiblue-recaptcha').each(
+                function (elm) {
+                    var cpatchaId = grecaptcha.render(elm.id, {
+                        'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
+                        'callback': function (response) {
+                            // since there are multiple instances of the response text area, populate them all with this response.
+                            // this then will ensure teh correct response is submitted back for this request
+                            $$('.g-recaptcha-response').each(function (elm) {
+                                $(elm).innerText = response;
+                            });
+                            $$('.enable-captcha-clicked').each(function (elm) {
+                                elm.enable();
+                            });
+                        }
+                    });
+                    window.captchas.push(cpatchaId);
+                }
+            );
         };
     </script>
-    <div id="recaptcha_widget" class="group-select wide fieldset" style="display:none">
-        <div class="col2-set">
-            <div class="col-1" style="width: 310px; margin-right: 10px; background: transparent; border: 0px none;">
-                <div id="recaptcha_image" style="border: 1px solid #CCCCCC; margin-bottom: 10px;"></div>
-                <div style="text-align: left;">
-                    <span class="recaptcha_only_if_image"><?php echo $this->__(
-                            'Type the image letters or numbers'
-                        ); ?></span>
-                    <span class="recaptcha_only_if_audio"><?php echo $this->__('Type what you hear'); ?></span>
-                    <input type="text" id="recaptcha_response_field" name="recaptcha_response_field"
-                           class="input-text required-entry"/>
-                </div>
-            </div>
-            <div class="col-2" style="float: left; width: 25px; background: transparent; border: 0px none;">
-                <div><a href="javascript:Recaptcha.reload()"><img
-                            src="<?php echo $this->getSkinUrl('recaptcha/images/refresh.png'); ?>"
-                            title="<?php echo $this->__('Load Another Image'); ?>"
-                            alt="<?php echo $this->__('Load Another Image'); ?>"/></a></div>
-                <div class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio')"><img
-                            src="<?php echo $this->getSkinUrl('recaptcha/images/sound.png'); ?>"
-                            title="<?php echo $this->__('Get an audio challenge'); ?>"
-                            alt="<?php echo $this->__('Get an audio challenge'); ?>"/></a></div>
-                <div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image')"><img
-                            src="<?php echo $this->getSkinUrl('recaptcha/images/text.png'); ?>"
-                            title="<?php echo $this->__('Get a visual challenge'); ?>"
-                            alt="<?php echo $this->__('Get a visual challenge'); ?>"/></a></div>
-                <div><a href="javascript:Recaptcha.showhelp()"><img
-                            src="<?php echo $this->getSkinUrl('fontis/recaptcha/images/help.png'); ?>"
-                            title="<?php echo $this->__('help'); ?>" alt="<?php echo $this->__('help'); ?>"/></a></div>
-            </div>
-        </div>
-
-    </div>
-<?php elseif ($theme == 'New'): ?>
-    <li id="<?php echo $captcha->getElementId(); ?>">
-        <div id="<?php echo $captcha->getElementId('image'); ?>" class='proxiblue-recaptcha'></div>
-    </li>
-    <?php if ($this->canRenderJS()): ?>
-        <script type="text/javascript">
-            var reCaptchaCallback = function () {
-                window.captchas = [];
-                $$('.proxiblue-recaptcha').each(
-                    function (elm) {
-                        var cpatchaId = grecaptcha.render(elm.id, {
-                            'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
-                            'callback': function (response) {
-                                // since there are multiple instances of the response text area, populate them all with this response.
-                                // this then will ensure teh correct response is submitted back for this request
-                                $$('.g-recaptcha-response').each(function (elm) {
-                                    $(elm).innerText = response;
-                                });
-                            }
-                        });
-                        window.captchas.push(cpatchaId);
-                    }
-                )
-            };
-        </script>
-        <script
+    <script
             src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>"
             async
             defer></script>
-    <?php endif; ?>
-<?php else: ?>
-    <script type="text/javascript">
-        var RecaptchaOptions = {
-            lang: '<?php echo $captcha->getLanguage(); ?>',
-            theme: '<?php echo $theme ?>',
-        };
-    </script>
-    <script type="text/javascript" src="<?php echo $captcha->getUrl(); ?>"></script>
 <?php endif; ?>
 <script>document.observe('billing-request:completed', function (re,result) {
         window.captchas.forEach(function(id) {
             grecaptcha.reset(id);
         });
-    });</script>
+    });
+</script>
