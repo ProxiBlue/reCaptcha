@@ -2,7 +2,7 @@
 <config>
     <modules>
         <ProxiBlue_ReCaptcha>
-            <version>1.4.0</version>
+            <version>1.4.1</version>
             <depends>
                 <Mage_Captcha/>
             </depends>
