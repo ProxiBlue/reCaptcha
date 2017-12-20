@@ -72,6 +72,7 @@
 		<customer>
 			<groups>
 				<captcha translate="label">
+                    <show_in_store>1</show_in_store>
 					<fields>
 						<font>
 							<depends>

@@ -2,7 +2,7 @@
 <config>
     <modules>
         <ProxiBlue_ReCaptcha>
-            <version>1.4.0</version>
+            <version>1.4.1</version>
             <depends>
                 <Mage_Captcha/>
             </depends>
@@ -56,6 +56,12 @@
                         <default>ProxiBlue_ReCaptcha.csv</default>
                     </files>
                 </ProxiBlue_ReCaptcha>
+                <!-- Magento forgot to add this to Mage_Captcha's config.xml -->
+                <Mage_Captcha>
+                    <files>
+                        <default>Mage_Captcha.csv</default>
+                    </files>
+                </Mage_Captcha>
             </modules>
         </translate>
     </adminhtml>
@@ -74,6 +80,12 @@
                         <default>ProxiBlue_ReCaptcha.csv</default>
                     </files>
                 </ProxiBlue_ReCaptcha>
+                <!-- Magento forgot to add this to Mage_Captcha's config.xml -->
+                <Mage_Captcha>
+                    <files>
+                        <default>Mage_Captcha.csv</default>
+                    </files>
+                </Mage_Captcha>
             </modules>
         </translate>
     </frontend>
