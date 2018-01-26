@@ -2,7 +2,7 @@
 <config>
     <modules>
         <ProxiBlue_ReCaptcha>
-            <version>1.4.1</version>
+            <version>1.5.0</version>
             <depends>
                 <Mage_Captcha/>
             </depends>
@@ -46,6 +46,14 @@
                     </captcha>
                 </observers>
             </controller_action_predispatch_review_product_post>
+            <controller_action_predispatch_wishlist_index_send>
+                <observers>
+                    <captcha>
+                        <class>proxiblue_recaptcha/observer</class>
+                        <method>checkWishlist</method>
+                    </captcha>
+                </observers>
+            </controller_action_predispatch_wishlist_index_send>
         </events>
     </global>
     <adminhtml>
@@ -115,6 +123,9 @@
                     <user_review>
                         <label>Reviews</label>
                     </user_review>
+                    <user_wishlist>
+                        <label>Wishlist Sharing</label>
+                    </user_wishlist>
                 </areas>
             </frontend>
         </captcha>

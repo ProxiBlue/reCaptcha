@@ -27,4 +27,13 @@
             </block>
         </reference>
     </checkout_onepage_review>
+    <wishlist_index_share translate="label">
+        <reference name="wishlist.sharing">
+            <block type="captcha/captcha" name="recaptcha">
+                <action method="setFormId">
+                    <formId>user_wishlist</formId>
+                </action>
+            </block>
+        </reference>
+    </wishlist_index_share>
 </layout>

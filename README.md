@@ -56,10 +56,6 @@ By Composer:
 * Clear cache
 * re-enable compilation
 
-By Magento Connect 1:
----------------------
-
-Check version number available via connect against what is in GIT. It is most likely that the connect package is dated, and it is prefered to install via composer or direct from git.
 
 Disabling:
 ==========
@@ -223,6 +219,23 @@ Product Review Captcha
  place the following line into the form, anywhere between the form elements. 
 
     <?php echo $this->getChildHtml('recaptcha'); ?>
+
+Customer Wishlist Sharing Captcha
+-------------------------
+
+* Enable in admin under Customer Configuration by selecting 'Wishlist Sharing' in available forms list
+* Unfortunately the core wishlist sharing form does not have an after form elements block, so you will need to adjust your reviews form to display the captcha.
+
+ Edit the wishlist sharing form located here: 
+ 
+    app/design/frontend/[rwd|base|your package]/[default|your theme]/template/wishlist/sharing.phtml
+ 
+ place the following line into the form, anywhere within the ```<ul class="form-list">``` element.
+ a good place will be just before the closing ```</ul>``` tag 
+
+    <?php echo $this->getChildHtml('recaptcha'); ?>
+
+ Entered values will be retained upon incorrect captcha entry   
 
 Captcha is still not appearing, even after I did the steps above!
 -----------------------------------------------------------------

@@ -12,6 +12,13 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
 {
 
     /**
+     * @var array
+     *
+     * normally recaptcha will not show for logged in users. Form ids listed here will also appear when logged in
+     *
+     */
+    protected $_alwaysShow = array('user_wishlist');
+    /**
      * Key in session for captcha code
      */
     const SESSION_WORD = 'word';
@@ -162,5 +169,26 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     public function getElementId($type = 'input')
     {
         return 'captcha-' . $type . '-box-' . trim($this->_formId);
+    }
+
+    /**
+     * Whether captcha is required to be inserted to this form
+     *
+     * @param null|string $login
+     * @return bool
+     */
+    public function isRequired($login = null)
+    {
+        if (in_array($this->_formId, $this->_alwaysShow)) {
+            return true;
+        }
+
+        if ($this->_isUserAuth() || !$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())) {
+            return false;
+        }
+
+        return ($this->_isShowAlways() || $this->_isOverLimitAttempts($login)
+            || $this->getSession()->getData($this->_getFormIdKey('show_captcha'))
+        );
     }
 }

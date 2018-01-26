@@ -160,5 +160,37 @@ class ProxiBlue_ReCaptcha_Model_Observer
         return false;
     }
 
+    /**
+     * Check Captcha On Whislist Sharing
+     *
+     * @param Varien_Event_Observer $observer
+     *
+     * @return Mage_Captcha_Model_Observer
+     */
+    public function checkWishlist($observer)
+    {
+        $formId = 'user_wishlist';
+        $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+        if ($captchaModel->isRequired()) {
+            $controller = $observer->getControllerAction();
+            if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
+                $request = $controller->getRequest();
+                $isAjax = $request->getParam('json');
+                // insert form data to session, allowing to re-populate the contact us form
+                $data = $controller->getRequest()->getPost();
+                Mage::getSingleton('wishlist/session')->setData('sharing_form', $data);
+                $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                if($isAjax) {
+                    $controller->getResponse()->setBody(Zend_Json::encode(array('error'=>Mage::helper('captcha')->__('Incorrect CAPTCHA.'))));
+                } else {
+                    Mage::getSingleton('customer/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $controller->getResponse()->setRedirect(Mage::getUrl('*/*/share'));
+                }
+            }
+        }
+
+        return $this;
+    }
+
 
 }
