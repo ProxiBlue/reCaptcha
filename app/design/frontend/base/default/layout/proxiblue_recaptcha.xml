@@ -1,3 +1,4 @@
+
 <?xml version="1.0"?>
 <layout version="0.1.0">
     <contacts_index_index>
@@ -36,4 +37,13 @@
             </block>
         </reference>
     </wishlist_index_share>
+    <sendfriend_product_send translate="label">
+        <reference name="sendfriend.send">
+            <block type="captcha/captcha" name="recaptcha">
+                <action method="setFormId">
+                    <formId>product_sendtofriend_form</formId>
+                </action>
+            </block>
+        </reference>
+    </sendfriend_product_send>
 </layout>
