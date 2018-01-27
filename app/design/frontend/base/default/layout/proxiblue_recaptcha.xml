@@ -36,4 +36,13 @@
             </block>
         </reference>
     </wishlist_index_share>
+    <sendfriend_product_send translate="label">
+        <reference name="sendfriend.send">
+            <block type="captcha/captcha" name="recaptcha">
+                <action method="setFormId">
+                    <formId>product_sendtofriend</formId>
+                </action>
+            </block>
+        </reference>
+    </sendfriend_product_send>
 </layout>

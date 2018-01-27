@@ -17,7 +17,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
      * normally recaptcha will not show for logged in users. Form ids listed here will also appear when logged in
      *
      */
-    protected $_alwaysShow = array('user_wishlist');
+    protected $_alwaysShow = array('user_wishlist', 'product_sendtofriend');
     /**
      * Key in session for captcha code
      */

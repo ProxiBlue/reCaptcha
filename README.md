@@ -79,7 +79,7 @@ Since 1.4.0 all v1 captcha (pre I am not a Robot) has been removed. There is thu
 Disable / Enable form submit buttons
 ------------------------------------
 
-From 1.4.0 you can add teh class 'enable-captcha-clicked' to any element and add the 'disabled' property to that element.
+From 1.4.0 you can add the class 'enable-captcha-clicked' to any element and add the 'disabled' property to that element.
 After clicked, the element will be enabled.
 
 example:
@@ -157,7 +157,7 @@ An example is as such:
 ###Submitting Contact Us via AJAX
 
 From version 1.3.0, you can pass two additional params via an AJAX submitted form.
-The response form the module will then be a JSON string denoting if teh captcha failed.
+The response form the module will then be a JSON string denoting if the captcha failed.
 
 Example AJAX call to submit a contact us form:
 
@@ -223,8 +223,12 @@ Product Review Captcha
 Customer Wishlist Sharing Captcha
 -------------------------
 
+The core functionality can easily be used to produce spam. 
+The process is that an account is created, then a product is added, then spam is generated via the share functionality, with spam messages in the message field.
+Adding reCaptcha allows you to block this.
+
 * Enable in admin under Customer Configuration by selecting 'Wishlist Sharing' in available forms list
-* Unfortunately the core wishlist sharing form does not have an after form elements block, so you will need to adjust your reviews form to display the captcha.
+* Unfortunately the core wishlist sharing form does not have an after form elements block, so you will need to adjust your form to display the captcha.
 
  Edit the wishlist sharing form located here: 
  
@@ -235,7 +239,39 @@ Customer Wishlist Sharing Captcha
 
     <?php echo $this->getChildHtml('recaptcha'); ?>
 
- Entered values will be retained upon incorrect captcha entry   
+ Entered values will be retained upon incorrect captcha entry  
+ 
+Product Email a Friend Captcha
+------------------------------
+
+The core functionality can easily be used to produce spam. 
+The process is that an account is created, then a product is Emailed to a Friend, then spam is generated via the send functionality, with spam messages in the message field.
+Adding reCaptcha allows you to block this.
+
+* Enable in admin under Customer Configuration by selecting 'Email a Friend' in available forms list
+
+Unfortunately the core Send a Friend form does not have an after form elements block, so you will need to adjust your form to display the captcha.
+Additionally, the form allows you to add/remove recipients by adding/removing more recipient rows.
+Some changes need to be made to the base form (copy to your own theme folder) to accommodate this functionality, else the recipients will be lost upon incorrect captcha.
+
+The changes are done to retain the core add/remove functionality of the form. 
+Since these changes are fairly big, I have provided a diff which you can apply, and for reference there is also a gist with the complete form ready to use (if you have no custom changes in your theme for the ```sendfiend/send.phtml``` template, you can simply just place the provided gist file to your theme as the template ```sendfiend\send.phtml```)
+
+[Full file](https://gist.github.com/ProxiBlue/bff88b184c9c0e44997ff6ae05468b01)
+[diff](https://gist.github.com/ProxiBlue/fdf28f9bf8b678e9aa30c475d681f974) 
+
+####Explaining the changes: 
+
+[recipients counter](https://gist.github.com/ProxiBlue/bff88b184c9c0e44997ff6ae05468b01#file-gistfile1-txt-L35)
+This change pre-sets the counter used to add new recipients. By default this is 0, since no recipients are initially present
+
+[pre propulate set receipients](https://gist.github.com/ProxiBlue/bff88b184c9c0e44997ff6ae05468b01#file-gistfile1-txt-L108) Injects the already defined recipients back into the form, after any failed captcha
+
+[inject captcha form](https://gist.github.com/ProxiBlue/bff88b184c9c0e44997ff6ae05468b01#file-gistfile1-txt-L102) ads the reCaptcha form to the display
+ 
+ 
+ 
+ Entered values will be retained upon incorrect captcha entry    
 
 Captcha is still not appearing, even after I did the steps above!
 -----------------------------------------------------------------
