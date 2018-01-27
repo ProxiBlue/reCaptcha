@@ -54,6 +54,14 @@
                     </captcha>
                 </observers>
             </controller_action_predispatch_wishlist_index_send>
+            <controller_action_predispatch_sendfriend_product_sendmail>
+                <observers>
+                    <captcha>
+                        <class>proxiblue_recaptcha/observer</class>
+                        <method>checkSendFriend</method>
+                    </captcha>
+                </observers>
+            </controller_action_predispatch_sendfriend_product_sendmail>
         </events>
     </global>
     <adminhtml>
@@ -73,6 +81,7 @@
             </modules>
         </translate>
     </adminhtml>
+
     <frontend>
         <layout>
             <updates>
@@ -126,6 +135,9 @@
                     <user_wishlist>
                         <label>Wishlist Sharing</label>
                     </user_wishlist>
+                    <product_sendtofriend_form>
+                        <label>Send to Friend</label>
+                    </product_sendtofriend_form>
                 </areas>
             </frontend>
         </captcha>
