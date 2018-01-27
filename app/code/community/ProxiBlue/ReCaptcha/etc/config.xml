@@ -134,9 +134,6 @@
                     <user_wishlist>
                         <label>Wishlist Sharing</label>
                     </user_wishlist>
-                    <user_wishlist>
-                        <label>Wishlist Sharing</label>
-                    </user_wishlist>
                     <product_sendtofriend>
                         <label>Product Email to a Friend</label>
                     </product_sendtofriend>
