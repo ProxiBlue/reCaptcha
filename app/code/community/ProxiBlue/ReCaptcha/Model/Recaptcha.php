@@ -179,11 +179,15 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
      */
     public function isRequired($login = null)
     {
+        if(!$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())){
+            return false;
+        }
+
         if (in_array($this->_formId, $this->_alwaysShow)) {
             return true;
         }
 
-        if ($this->_isUserAuth() || !$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())) {
+        if ($this->_isUserAuth()) {
             return false;
         }
 
