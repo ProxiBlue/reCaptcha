@@ -205,6 +205,15 @@ Note the inclusion of two extra variables in the POST:
      json: 1,
      gcr: $j("#g-recaptcha-response").val()
 
+###Use in CMS Page
+
+You can Place the Contact Us form within a CMS page using the following Block notation:
+
+     <ul>
+     {{block type="proxiblue_recaptcha/contact" name="contactForm" form_action="/contacts/index/post" template="contacts/form.phtml"}}
+     </ul>
+
+Remember to add the custom block to your allowed blocks in System->Permissions->Blocks. Use ```proxiblue_recaptcha/contact```
 
 Product Review Captcha
 -------------------------
@@ -218,8 +227,9 @@ Product Review Captcha
  
  place the following line into the form, anywhere between the form elements. 
 
-    <?php echo $this->getChildHtml('recaptcha'); ?>
-
+    <ul>
+        <?php echo $this->getChildHtml('recaptcha'); ?>
+    </ul>
 Customer Wishlist Sharing Captcha
 -------------------------
 
@@ -237,7 +247,9 @@ Adding reCaptcha allows you to block this.
  place the following line into the form, anywhere within the ```<ul class="form-list">``` element.
  a good place will be just before the closing ```</ul>``` tag 
 
-    <?php echo $this->getChildHtml('recaptcha'); ?>
+    <ul>
+        <?php echo $this->getChildHtml('recaptcha'); ?>
+    </ul>    
 
  Entered values will be retained upon incorrect captcha entry  
  
