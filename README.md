@@ -154,7 +154,8 @@ An example is as such:
 
     <input name="firstname" id="firstname" title="<?php echo Mage::helper('contacts')->__('First Name') ?>" value="<?php echo $this->htmlEscape($_firstname) ?>" class="input-text required-entry" type="text" />
 
-###Submitting Contact Us via AJAX
+Submitting Contact Us via AJAX
+------------------------------
 
 From version 1.3.0, you can pass two additional params via an AJAX submitted form.
 The response form the module will then be a JSON string denoting if the captcha failed.
@@ -205,7 +206,8 @@ Note the inclusion of two extra variables in the POST:
      json: 1,
      gcr: $j("#g-recaptcha-response").val()
 
-###Use in CMS Page
+Use in CMS Page
+----------------
 
 You can Place the Contact Us form within a CMS page using the following Block notation:
 
