@@ -12,7 +12,7 @@ class ProxiBlue_ReCaptcha_Model_Config_Lang
 
     private $lang = array(
         array('value' => 'en', 'label' => 'English (US)'),
-        array('value' => 'en-GB', 'label' => 'English (US)'),
+        array('value' => 'en-GB', 'label' => 'English (GB)'),
         array('value' => 'fr', 'label' => 'French'),
         array('value' => 'fr-CA', 'label' => 'French (Canadian)'),
         array('value' => 'de', 'label' => 'German'),
