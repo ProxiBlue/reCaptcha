@@ -50,7 +50,7 @@
             });
         };
     </script>
-    <div id="recaptcha_html_element"></div>
+    <div id="recaptcha_html_element" style="clear: both"></div>
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>" async defer></script>
 <?php else: ?>
     <script type="text/javascript">
