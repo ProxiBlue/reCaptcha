@@ -6,37 +6,55 @@
 </li>
 
 <?php if ($this->canRenderJS()): ?>
-    <script type="text/javascript">
-        var reCaptchaCallback = function () {
-            window.captchas = [];
-            $$('.proxiblue-recaptcha').each(
-                function (elm) {
-                    var cpatchaId = grecaptcha.render(elm.id, {
-                        'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
-                        'callback': function (response) {
-                            // since there are multiple instances of the response text area, populate them all with this response.
-                            // this then will ensure teh correct response is submitted back for this request
-                            $$('.g-recaptcha-response').each(function (elm) {
-                                $(elm).innerText = response;
-                            });
-                            $$('.enable-captcha-clicked').each(function (elm) {
-                                elm.enable();
-                            });
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            window.reCaptchaCallback = function () {
+                window.captchas = [];
+                var reCaptchaElements = $$('.proxiblue-recaptcha');
+                reCaptchaElements.each(
+                    function (elm) {
+                        var form = elm.up('form');
+                        if(!form) {
+                            return;
                         }
-                    });
-                    window.captchas.push(cpatchaId);
-                }
-            );
-        };
+                        var varienForm = new VarienForm(form.id);
+                        var cpatchaId = grecaptcha.render(elm.id, {
+                            "size": "invisible",
+                            'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
+                            'callback': function (response) {
+                                // since there are multiple instances of the response text area, populate them all with this response.
+                                // this then will ensure teh correct response is submitted back for this request
+                                $$('.g-recaptcha-response').each(function (elm) {
+                                    $(elm).innerText = response;
+                                });
+                                $$('.enable-captcha-clicked').each(function (elm) {
+                                    elm.enable();
+                                });
+                                form.submit();
+                            }
+                        });
+                        window.captchas.push(cpatchaId);
+                        form.addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            if (varienForm.validator.validate()) {
+                                grecaptcha.execute(elm);
+                            }
+                        });
+                        elm.select('iframe').each(function(iframe) {
+                            iframe.writeAttribute('tabindex', '-1');
+                        });
+                    }
+                );
+            };
+            document.observe('billing-request:completed', function (re,result) {
+                window.captchas.forEach(function(id) {
+                    grecaptcha.reset(id);
+                });
+            });
+        });
     </script>
     <script
             src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>"
             async
             defer></script>
 <?php endif; ?>
-<script>document.observe('billing-request:completed', function (re,result) {
-        window.captchas.forEach(function(id) {
-            grecaptcha.reset(id);
-        });
-    });
-</script>
