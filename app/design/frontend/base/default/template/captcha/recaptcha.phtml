@@ -19,7 +19,7 @@
                         }
                         var varienForm = new VarienForm(form.id);
                         var cpatchaId = grecaptcha.render(elm.id, {
-                            <?php if($theme = 'invisible'):?>
+                            <?php if($theme == 'invisible'):?>
                             "size": "invisible",
                             <?php endif; ?>
                             'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
@@ -36,7 +36,7 @@
                             }
                         });
                         window.captchas.push(cpatchaId);
-                        <?php if($theme = 'invisible'):?>
+                        <?php if($theme == 'invisible'):?>
                         form.addEventListener('submit', function(e) {
                             e.preventDefault();
                             if (varienForm.validator.validate()) {

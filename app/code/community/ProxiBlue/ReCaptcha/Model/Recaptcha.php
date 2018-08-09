@@ -114,6 +114,8 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
                 $response = json_decode($result);
                 if (is_object($response) && $response->success == true) {
                     return true;
+                } elseif(is_object($response)) {
+                    Mage::throwException(print_r($response,true));
                 }
             } else {
                 $params = array('privatekey' => $this->_private_key,
@@ -129,7 +131,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
                 }
             }
         } catch (Exception $e) {
-            Mage::log($e);
+            Mage::log($e->getMessage());
         }
 
         return false;
@@ -154,7 +156,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
         $httpRequest->setParameterPost(array_merge(array('remoteip' => $_SERVER['REMOTE_ADDR']), $params));
         $response = $httpRequest->request('POST');
         if ($response->getStatus() != 200) {
-            mage::throwException('Bad response from cpatcha gateway. we got ' . $response->getStatus());
+            Mage::throwException('Bad response from cpatcha gateway. we got ' . $response->getStatus());
         }
 
         return $response->getBody();
