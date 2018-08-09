@@ -116,7 +116,7 @@
         </admin>
         <customer>
             <captcha>
-                <type>recaptcha</type>
+                <type>robot</type>
                 <theme>New</theme>
                 <language>en</language>
                 <mode>always</mode>

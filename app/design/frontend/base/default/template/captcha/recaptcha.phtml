@@ -19,7 +19,9 @@
                         }
                         var varienForm = new VarienForm(form.id);
                         var cpatchaId = grecaptcha.render(elm.id, {
+                            <?php if($theme = 'invisible'):?>
                             "size": "invisible",
+                            <?php endif; ?>
                             'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
                             'callback': function (response) {
                                 // since there are multiple instances of the response text area, populate them all with this response.
@@ -34,6 +36,7 @@
                             }
                         });
                         window.captchas.push(cpatchaId);
+                        <?php if($theme = 'invisible'):?>
                         form.addEventListener('submit', function(e) {
                             e.preventDefault();
                             if (varienForm.validator.validate()) {
@@ -43,6 +46,7 @@
                         elm.select('iframe').each(function(iframe) {
                             iframe.writeAttribute('tabindex', '-1');
                         });
+                        <?php endif; ?>
                     }
                 );
             };
