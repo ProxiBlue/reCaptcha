@@ -14,7 +14,7 @@
                 $$('.enable-captcha-clicked').each(function (elm) {
                     elm.enable();
                 });
-                window.submitParent();
+                loginForm._submit();
             },
             <?php endif; ?>
             'sitekey': '<?php echo $captcha->getPublicKey(); ?>'
@@ -28,7 +28,6 @@
     <script>
             Validation.prototype.onSubmit = Validation.prototype.onSubmit.wrap(function(parentMethod,ev){
                 Event.stop(ev);
-                window.submitParent = parentMethod;
                 grecaptcha.execute($('recaptcha_html_element'));
                 $('recaptcha_html_element').select('iframe').each(function (iframe) {
                     iframe.writeAttribute('tabindex', '-1');
