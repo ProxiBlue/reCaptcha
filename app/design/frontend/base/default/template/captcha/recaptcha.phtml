@@ -23,6 +23,7 @@
                             "size": "invisible",
                             <?php endif; ?>
                             'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
+                            'badge': '<?php echo $captcha->getPosition(); ?>',
                             'callback': function (response) {
                                 // since there are multiple instances of the response text area, populate them all with this response.
                                 // this then will ensure teh correct response is submitted back for this request

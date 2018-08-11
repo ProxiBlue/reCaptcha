@@ -17,7 +17,8 @@
                 loginForm._submit();
             },
             <?php endif; ?>
-            'sitekey': '<?php echo $captcha->getPublicKey(); ?>'
+            'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
+            'badge': '<?php echo $captcha->getPosition(); ?>'
         });
     };
 </script>

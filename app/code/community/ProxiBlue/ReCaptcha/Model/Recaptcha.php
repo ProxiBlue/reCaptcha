@@ -42,6 +42,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     protected $_theme = 'clean';
     protected $_private_key = null;
     protected $_public_key = null;
+    protected $_position = 'bottomleft';
 
 
     /**
@@ -74,6 +75,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
         $this->_theme = $this->_getHelper()->getConfigNode('theme');
         $this->_private_key = $this->_getHelper()->getConfigNode('private_key');
         $this->_public_key = $this->_getHelper()->getConfigNode('public_key');
+        $this->_position = $this->_getHelper()->getConfigNode('position');
     }
 
     public function getLanguage()
@@ -84,6 +86,11 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     public function getTheme()
     {
         return $this->_theme;
+    }
+
+    public function getPosition()
+    {
+        return $this->_position;
     }
 
     public function getPrivateKey()
