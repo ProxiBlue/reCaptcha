@@ -310,7 +310,7 @@ To make reCaptcha appear on subscriber form/page, you need to edit this template
 
     app/design/frontend/[rwd|base|your package]/[default|your theme]/template/newsletter/subscribe.phtml 
 
-Please the following code between the ```<form>``` and closing ```</form>``` elements:
+Place the following code between the ```<form>``` and closing ```</form>``` elements:
 
 ````
 <ul>
