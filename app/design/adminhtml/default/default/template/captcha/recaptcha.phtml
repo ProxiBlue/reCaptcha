@@ -30,11 +30,10 @@
             Validation.prototype.onSubmit = Validation.prototype.onSubmit.wrap(function(parentMethod,ev){
                 Event.stop(ev);
                 grecaptcha.execute($('recaptcha_html_element'));
-                $('recaptcha_html_element').select('iframe').each(function (iframe) {
-                    iframe.writeAttribute('tabindex', '-1');
-                });
                 return false;
             });
-
+            $('recaptcha_html_element').select('iframe').each(function (iframe) {
+                iframe.writeAttribute('tabindex', '-1');
+            });
     </script>
 <?php endif; ?>

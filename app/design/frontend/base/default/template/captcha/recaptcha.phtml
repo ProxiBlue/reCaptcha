@@ -9,7 +9,6 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             window.reCaptchaCallback = function () {
-                window.captchas = [];
                 var reCaptchaElements = $$('.proxiblue-recaptcha');
                 reCaptchaElements.each(
                     function (elm) {
@@ -18,14 +17,15 @@
                             return;
                         }
                         var varienForm = new VarienForm(form.id);
-                        var cpatchaId = grecaptcha.render(elm.id, {
+                        grecaptcha.render(elm.id, {
                             <?php if($theme == 'invisible'):?>
                             "size": "invisible",
                             <?php endif; ?>
                             'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
                             'badge': '<?php echo $captcha->getPosition(); ?>',
                             'callback': function (response) {
-                                // since there are multiple instances of the response text area, populate them all with this response.
+                                // since there are multiple instances of the response text area, populate them all
+                                // with this response.
                                 // this then will ensure teh correct response is submitted back for this request
                                 $$('.g-recaptcha-response').each(function (elm) {
                                     $(elm).innerText = response;
@@ -33,23 +33,37 @@
                                 $$('.enable-captcha-clicked').each(function (elm) {
                                     elm.enable();
                                 });
-                                form.submit();
+                                window.parentMehod();
                             }
                         });
-                        window.captchas.push(cpatchaId);
                         <?php if($theme == 'invisible'):?>
-                        form.addEventListener('submit', function(e) {
-                            e.preventDefault();
-                            if (varienForm.validator.validate()) {
-                                grecaptcha.execute(elm);
-                            }
-                        });
-                        elm.select('iframe').each(function(iframe) {
-                            iframe.writeAttribute('tabindex', '-1');
-                        });
+                            form.addEventListener('submit', function(e) {
+                                e.preventDefault();
+                                if (varienForm.validator.validate()) {
+                                    window.parentMehod = function() { form.submit() };
+                                    grecaptcha.execute(elm);
+                                }
+                            });
+                            elm.select('iframe').each(function(iframe) {
+                                iframe.writeAttribute('tabindex', '-1');
+                            });
                         <?php endif; ?>
-                    }
-                );
+                    });
+
+                <?php if($theme == 'invisible'):?>
+
+                    VarienForm.prototype.submit = VarienForm.prototype.submit.wrap(function (parentMethod) {
+                        window.parentMehod = parentMethod;
+                        if (this.validator && this.validator.validate()) {
+                            // simply execute the first hidden recaptcha found, as its result will
+                            // be inserted to all the captchas on the page
+                            // so effectively all recaptchas on page will contain the result with the submit.
+                            grecaptcha.execute();
+                        }
+                        return false;
+                    });
+
+                <?php endif; ?>
             };
             document.observe('billing-request:completed', function (re,result) {
                 window.captchas.forEach(function(id) {
