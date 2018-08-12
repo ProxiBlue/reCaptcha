@@ -13,9 +13,13 @@ http://www.proxiblue.com.au/blog/magento-recaptcha/
 Requirements
 ============
 
-Core magento onepage checkout for reCaptcha in Checkout.
-There is no plans to extend this extension to ise 3rd party checkouts.
-Feel free to extend if you know how. PRs welcomed.
+* Core magento onepage checkout for reCaptcha in Checkout.
+* There is no plans to extend this extension to ise 3rd party checkouts.
+* Feel free to extend if you know how. PRs welcomed.
+* You require a bit of knowledge on how to extend theme templates. This reCaptcha does not rewrite or extend core 
+functionality, so it does not replace theme files. Clear instructions are given. It works 'out-the-box' in all areas 
+where core magento captcha works. It is more 'developer' centric, when you don't want a reCaptcha module to make major 
+changes to core functionality.
 
 Installing
 ==========
@@ -76,6 +80,13 @@ V1 Captcha support dropped
 
 Since 1.4.0 all v1 captcha (pre I am not a Robot) has been removed. There is thus no longer a theme selection, as only I am not a Robot is supported.
 
+
+Invisible reCaptcha
+--------------------
+
+Now supports 'invisible' reCaptcha, with option between 'core', 'I am not a robot' or invisible, including admin area
+
+
 Disable / Enable form submit buttons
 ------------------------------------
 
@@ -117,7 +128,7 @@ Contact Us Captcha
  
     app/design/frontend/[rwd|base|your package]/[default|your theme]/template/contacts/form.phtml
  
- place the following line into the form, anywhere between the form elements. 
+ place the following line into the form, anywhere between ```<ul class="form-list">``` and closing ```<ul>``` elements in the form
 
     <?php echo $this->getChildHtml('recaptcha'); ?>
 
@@ -232,6 +243,7 @@ Product Review Captcha
     <ul>
         <?php echo $this->getChildHtml('recaptcha'); ?>
     </ul>
+    
 Customer Wishlist Sharing Captcha
 -------------------------
 
@@ -285,7 +297,30 @@ This change pre-sets the counter used to add new recipients. By default this is 
  
  
  
- Entered values will be retained upon incorrect captcha entry    
+Entered values will be retained upon incorrect captcha entry    
+
+
+Newsletter Subscribe Captcha
+----------------------------
+
+Most sites have newsletter subscribe option, on every page. This is a big source for spam.
+With invisible recaptcha option you can limit this now, without adding extra effort for user to subscribe.
+
+To make reCaptcha appear on subscriber form/page, you need to edit this template:
+
+    app/design/frontend/[rwd|base|your package]/[default|your theme]/template/newsletter/subscribe.phtml 
+
+Please the following code between the ```<form>``` and closing ```</form>``` elements:
+
+````
+<ul>
+   <?php echo Mage::helper('proxiblue_recaptcha')->generateCatchaBlock('newsletter_subscribe'); ?>
+</ul>
+
+````
+
+Ensure options are set in admin to allow recaptcha for newsletter, and using Invisible reCaptcha is recommeded
+
 
 Captcha is still not appearing, even after I did the steps above!
 -----------------------------------------------------------------

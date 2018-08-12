@@ -225,5 +225,34 @@ class ProxiBlue_ReCaptcha_Model_Observer
         return $this;
     }
 
+    /**
+     * Check Captcha On newsletter Subscribe
+     *
+     * @param Varien_Event_Observer $observer
+     *
+     * @return Mage_Captcha_Model_Observer
+     */
+    public function newsletterSubscriber($observer)
+    {
+        $formId = 'newsletter_subscribe';
+        $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+        if ($captchaModel->isRequired()) {
+            $controller = $observer->getControllerAction();
+            if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
+                $request = $controller->getRequest();
+                $isAjax = $request->getParam('json');
+                $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                if($isAjax) {
+                    $controller->getResponse()->setBody(Zend_Json::encode(array('error'=>Mage::helper('captcha')->__('Incorrect CAPTCHA.'))));
+                } else {
+                    $session = Mage::getSingleton('core/session');
+                    $session->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $controller->getResponse()->setRedirect($this->_getRefererUrl($controller));
+                }
+            }
+        }
+        return $this;
+    }
+
 
 }
