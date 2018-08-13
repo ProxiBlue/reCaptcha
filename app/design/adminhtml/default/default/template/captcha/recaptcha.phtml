@@ -24,12 +24,14 @@
 </script>
 <br/>
 <div id="recaptcha_html_element" style="clear: both"></div>
-<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>" async defer></script>
+<?php if($this->canRenderJs()): ?>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>" async defer></script>
+<?php endif;?>
 <?php if($theme == 'invisible'):?>
     <script>
             Validation.prototype.onSubmit = Validation.prototype.onSubmit.wrap(function(parentMethod,ev){
                 Event.stop(ev);
-                grecaptcha.execute($('recaptcha_html_element'));
+                grecaptcha.execute();
                 return false;
             });
             $('recaptcha_html_element').select('iframe').each(function (iframe) {

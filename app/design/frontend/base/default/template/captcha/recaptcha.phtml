@@ -44,7 +44,7 @@
                                 e.preventDefault();
                                 if (varienForm.validator.validate()) {
                                     window.parentMehod = function() { form.submit() };
-                                    grecaptcha.execute(elm);
+                                    grecaptcha.execute();
                                 }
                             });
                             elm.select('iframe').each(function(iframe) {
@@ -75,12 +75,12 @@
                             var skipParent = false;
                             if (checkout.method == 'guest' && $('captcha-image-box-guest_checkout') != undefined) {
                                 skipParent = true;
-                                grecaptcha.execute($('captcha-image-box-guest_checkout'));
+                                grecaptcha.execute();
 
                             }
                             if (checkout.method == 'register' && $('captcha-image-box-register_during_checkout') != undefined) {
                                 skipParent = true;
-                                grecaptcha.execute($('captcha-image-box-register_during_checkout'));
+                                grecaptcha.execute();
                             }
                             if(skipParent == false) {
                                 parentMethod();
@@ -103,7 +103,7 @@
             });
         });
     </script>
-    <script
+        <script
             src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>"
             async
             defer></script>
