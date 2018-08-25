@@ -19,10 +19,12 @@ class ProxiBlue_ReCaptcha_Helper_Data extends Mage_Captcha_Helper_Data {
     const RECAPTCHA_SITEVERIFY_PATH = "siteverify";
 
 
-    public function generateCatchaBlock($area) {
+    public function generateCatchaBlock($area, $isolate = false) {
         $captchaBlock = Mage::app()->getLayout()
             ->createBlock('captcha/captcha','recaptcha')->setFormId($area);
-        return $captchaBlock->toHtml();
+        $captchaBlock->setIsolate($isolate);
+        $html = $captchaBlock->toHtml();
+        return $html;
     }
 
 }

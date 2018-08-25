@@ -14,43 +14,52 @@
                 var reCaptchaElements = $$('.proxiblue-recaptcha');
                 reCaptchaElements.each(
                     function (elm) {
-                        var form = elm.up('form');
-                        if(!form) {
-                            return;
-                        }
-                        var varienForm = new VarienForm(form.id);
-                        var cpatchaId = grecaptcha.render(elm.id, {
-                            <?php if($theme == 'invisible'):?>
-                            "size": "invisible",
-                            <?php endif; ?>
-                            'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
-                            'badge': '<?php echo $captcha->getPosition(); ?>',
-                            'callback': function (response) {
-                                // since there are multiple instances of the response text area, populate them all
-                                // with this response.
-                                // this then will ensure the correct response is submitted back for this request
-                                $$('.g-recaptcha-response').each(function (elm) {
-                                    $(elm).innerText = response;
-                                });
-                                $$('.enable-captcha-clicked').each(function (elm) {
-                                    elm.enable();
-                                });
-                                window.parentMehod();
+                        var hasInit = elm.readAttribute('data-initDone');
+                        if(hasInit == null) {
+                            var form = elm.up('form');
+                            if (!form) {
+                                return;
                             }
-                        });
-                        window.captchas.push(cpatchaId);
-                        <?php if($theme == 'invisible'):?>
-                            form.addEventListener('submit', function(e) {
+                            var varienForm = new VarienForm(form.id);
+                            var cpatchaId = grecaptcha.render(elm.id, {
+                                <?php if($theme == 'invisible'):?>
+                                "size": "invisible",
+                                <?php endif; ?>
+                                <?php if($this->getIsolate()):?>
+                                "isolated": true,
+                                <?php endif; ?>
+                                'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
+                                'badge': '<?php echo $captcha->getPosition(); ?>',
+                                'callback': function (response) {
+                                    // since there are multiple instances of the response text area, populate them all
+                                    // with this response.
+                                    // this then will ensure the correct response is submitted back for this request
+                                    $$('.g-recaptcha-response').each(function (elm) {
+                                        $(elm).innerText = response;
+                                    });
+                                    $$('.enable-captcha-clicked').each(function (elm) {
+                                        elm.enable();
+                                    });
+                                    window.parentMehod();
+                                }
+                            });
+                            window.captchas.push(cpatchaId);
+                            elm.writeAttribute('data-initDone', '1');
+                            <?php if($theme == 'invisible'):?>
+                            form.addEventListener('submit', function (e) {
                                 e.preventDefault();
                                 if (varienForm.validator.validate()) {
-                                    window.parentMehod = function() { form.submit() };
+                                    window.parentMehod = function () {
+                                        form.submit()
+                                    };
                                     grecaptcha.execute();
                                 }
                             });
-                            elm.select('iframe').each(function(iframe) {
+                            elm.select('iframe').each(function (iframe) {
                                 iframe.writeAttribute('tabindex', '-1');
                             });
-                        <?php endif; ?>
+                            <?php endif; ?>
+                        }
                     });
 
                 <?php if($theme == 'invisible'):?>

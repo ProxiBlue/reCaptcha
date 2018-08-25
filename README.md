@@ -314,7 +314,7 @@ Place the following code between the ```<form>``` and closing ```</form>``` elem
 
 ````
 <ul>
-   <?php echo Mage::helper('proxiblue_recaptcha')->generateCatchaBlock('newsletter_subscribe'); ?>
+   <?php echo $this->getChildHtml('recaptcha'); ?>
 </ul>
 
 ````
