@@ -372,6 +372,25 @@ copy the entire section from the reCaptcha layout over into that section.
 
 If, you also have the following:  ```<reference name="product.review.form">``` then only copy the BLOCK definition part into that reference.
 
+Uninstall
+=========
+
+This *should* not happen, but if you uninstall the module, you could run into an error that the recaptcha block is not available
+
+```exception 'Mage_Core_Exception' with message 'Invalid block type: ProxiBlue_ReCaptcha_Block_Captcha_Recaptcha'```
+
+You need to remove two entries from the core table ```core_config_data``` (one for admin, one for frontend)
+
+* access your database via your prefered MySQL admin tool (for example PHPMyAdmin)
+* run: ```DELETE FROM `core_config_data` WHERE `path` = 'customer/capctha/type';
+* run: ```DELETE FROM `core_config_data` WHERE `path` = 'admin/capctha/type';
+* clear your cache by deleting the ```var/cache``` folder
+
+if you use n98-magerun:
+
+* n98-magerun config:delete customer/capctha/type
+* n98-magerun config:delete admin/capctha/type
+* n98-magerun cache:clean
 
 Our Premium extensions:
 ----------------------
