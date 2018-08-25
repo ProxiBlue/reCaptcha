@@ -108,7 +108,7 @@ You can get testing/developer keys here: https://developers.google.com/recaptcha
 V1 Captcha support dropped
 ----------------------------------------------
 
-Since 1.4.0 all v1 captcha (pre I am not a Robot) has been removed. There is thus no longer a theme selection, as only I am not a Robot is supported.
+Since 1.4.0 all v1 captcha (pre I am not a Robot) has been removed.
 
 
 Disable / Enable form submit buttons
