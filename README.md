@@ -6,20 +6,28 @@ Drop-In Replacement of Magento's core Captcha system with Googles reCaptcha
 http://www.proxiblue.com.au/blog/magento-recaptcha/
 
 * Supports all native magento captcha areas
-* Supports placing captcha into contact us form
-* Supports the 'I am not a robot' reCaptcha api (now the default)
-* Support Product Review Captcha
+* Supports placing captcha into 
+   
+  * Contact Us form, 
+  * CMS pages (contact us in cms page), 
+  * Products Reviews 
+  * Customer Wishlist Sharing
+  * Product 'Email a friend'
+  * Newsletter Subscribe
+ 
+* Supports Invisible reCaptcha (now the default) with option to set badge position
+* Supports the 'I am not a robot' reCaptcha (just in case you don't want invisible)
 
 Requirements
 ============
 
 * Core magento onepage checkout for reCaptcha in Checkout.
-* There is no plans to extend this extension to ise 3rd party checkouts.
+* There is no plans to extend this extension to use 3rd party checkouts, however PRs are welcomed
 * Feel free to extend if you know how. PRs welcomed.
 * You require a bit of knowledge on how to extend theme templates. This reCaptcha does not rewrite or extend core 
 functionality, so it does not replace theme files. Clear instructions are given. It works 'out-the-box' in all areas 
 where core magento captcha works. It is more 'developer' centric, when you don't want a reCaptcha module to make major 
-changes to core functionality.
+changes to core functionality, and allows your developer to integrate into your themes. Clear instructions are given.
 
 Installing
 ==========
@@ -66,25 +74,41 @@ Disabling:
 
 * Disable compilation
 * Edit the file <magento root>/app/etc/modules/ProxiBlue_ReCaptcha.xml, and set the active to false.
+* Remove any theme captcha insertion code as described below in all sections
 * Clear Cache
 * Enable compilation
+
+This *should* not happen, but if you uninstall the module, you *could* run into an error that the recaptcha block is not available
+
+```exception 'Mage_Core_Exception' with message 'Invalid block type: ProxiBlue_ReCaptcha_Block_Captcha_Recaptcha'```
+
+You need to remove two entries from the core table ```core_config_data``` (one for admin, one for frontend)
+
+* access your database via your prefered MySQL admin tool (for example PHPMyAdmin)
+* run: ```DELETE FROM `core_config_data` WHERE `path` = 'customer/capctha/type';
+* run: ```DELETE FROM `core_config_data` WHERE `path` = 'admin/capctha/type';
+* clear your cache by deleting the ```var/cache``` folder
+
+if you use n98-magerun:
+
+* n98-magerun config:delete customer/capctha/type
+* n98-magerun config:delete admin/capctha/type
+* n98-magerun cache:clean
+
 
 Setup:
 ======
 
 * Obtain your site public key (Site Key) and private key (Secret Key) for your domain and recaptcha usage
+* Note that Invisible requires new keys, and existing keys for 'I am not a robot' will NOT work!
 * Enter these in the admin settings for captcha.
+
+You can get testing/developer keys here: https://developers.google.com/recaptcha/docs/faq
 
 V1 Captcha support dropped
 ----------------------------------------------
 
 Since 1.4.0 all v1 captcha (pre I am not a Robot) has been removed. There is thus no longer a theme selection, as only I am not a Robot is supported.
-
-
-Invisible reCaptcha
---------------------
-
-Now supports 'invisible' reCaptcha, with option between 'core', 'I am not a robot' or invisible, including admin area
 
 
 Disable / Enable form submit buttons
@@ -371,26 +395,6 @@ copy the entire section from the reCaptcha layout over into that section.
 ```
 
 If, you also have the following:  ```<reference name="product.review.form">``` then only copy the BLOCK definition part into that reference.
-
-Uninstall
-=========
-
-This *should* not happen, but if you uninstall the module, you could run into an error that the recaptcha block is not available
-
-```exception 'Mage_Core_Exception' with message 'Invalid block type: ProxiBlue_ReCaptcha_Block_Captcha_Recaptcha'```
-
-You need to remove two entries from the core table ```core_config_data``` (one for admin, one for frontend)
-
-* access your database via your prefered MySQL admin tool (for example PHPMyAdmin)
-* run: ```DELETE FROM `core_config_data` WHERE `path` = 'customer/capctha/type';
-* run: ```DELETE FROM `core_config_data` WHERE `path` = 'admin/capctha/type';
-* clear your cache by deleting the ```var/cache``` folder
-
-if you use n98-magerun:
-
-* n98-magerun config:delete customer/capctha/type
-* n98-magerun config:delete admin/capctha/type
-* n98-magerun cache:clean
 
 Our Premium extensions:
 ----------------------
