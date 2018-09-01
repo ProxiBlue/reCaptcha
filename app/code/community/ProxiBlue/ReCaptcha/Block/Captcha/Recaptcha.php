@@ -11,13 +11,4 @@ class ProxiBlue_ReCaptcha_Block_Captcha_Recaptcha extends Mage_Captcha_Block_Cap
 
 	protected $_template = 'captcha/recaptcha.phtml';
 
-    public function canRenderJs()
-    {
-        if (!Mage::registry('recaptcha_rendered')) {
-            Mage::register('recaptcha_rendered', true, true);
-            return true;
-        }
-        return false;
-    }
-
 }
