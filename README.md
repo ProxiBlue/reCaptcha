@@ -396,6 +396,13 @@ copy the entire section from the reCaptcha layout over into that section.
 
 If, you also have the following:  ```<reference name="product.review.form">``` then only copy the BLOCK definition part into that reference.
 
+* It may be you have old captcha settings stuck in db, and they need to be cleared out.
+
+Run this SQL against your db: ```DELETE FROM core_config_data where path like '%captcha%'```
+Thsi will also wipe your api keys, so you will need to re-setup admin.
+
+
+
 Our Premium extensions:
 ----------------------
 [Magento Dynamic Category Products](http://www.proxiblue.com.au/magento-dynamic-category-products.html "Magento Dynamic Category Products")
