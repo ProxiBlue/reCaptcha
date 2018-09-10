@@ -177,7 +177,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
      */
     public function getElementId($type = 'input')
     {
-        return 'captcha-' . $type . '-box-' . trim($this->_formId);
+        return 'captcha-' . rand(0,1000) . '-' . $type . '-box-' . trim($this->_formId);
     }
 
     /**
