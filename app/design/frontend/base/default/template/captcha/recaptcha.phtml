@@ -2,7 +2,7 @@
 <?php $theme = $captcha->getTheme(); ?>
 
 <li id="<?php echo $captcha->getElementId(); ?>">
-    <div id="<?php echo $captcha->getElementId('image'); ?>" class='proxiblue-recaptcha'></div>
+    <div id="<?php echo $captcha->getElementId('container'); ?>" class='proxiblue-recaptcha'></div>
 </li>
 
 <script>
@@ -39,19 +39,30 @@
                                 $$('.enable-captcha-clicked').each(function (elm) {
                                     elm.enable();
                                 });
-                                window.parentMehod();
+                                if(window.recaptchaPassBackRecaptchaResponse != 1) {
+                                    window.parentMehod();
+                                } else {
+                                    window.parentMehod(response);
+                                }
+
                             }
                         });
                         window.captchas.push(cpatchaId);
                         window.captchaHasInit = 1;
                         <?php if($theme == 'invisible'):?>
                         form.addEventListener('submit', function (e) {
-                            e.preventDefault();
-                            if (varienForm.validator.validate()) {
-                                window.parentMehod = function () {
-                                    form.submit()
-                                };
-                                grecaptcha.execute();
+                            /**
+                             * Prevent an ajax submit form, which already has a submit event from triggering this submit event as well
+                             * If you place a form via ajax, first set this flag, and assign the resulting function to be called as window.parentMehod
+                             */
+                            if(window.recaptchaHasInterceptedFormSubmit != 1) {
+                                e.preventDefault();
+                                if (varienForm.validator.validate()) {
+                                    window.parentMehod = function () {
+                                        form.submit()
+                                    };
+                                    grecaptcha.execute();
+                                }
                             }
                         });
                         elm.select('iframe').each(function (iframe) {
