@@ -196,10 +196,6 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
             return true;
         }
 
-        if ($this->_isUserAuth()) {
-            return false;
-        }
-
         return ($this->_isShowAlways() || $this->_isOverLimitAttempts($login)
             || $this->getSession()->getData($this->_getFormIdKey('show_captcha'))
         );
