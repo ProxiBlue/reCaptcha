@@ -5,38 +5,132 @@
     <div id="<?php echo $captcha->getElementId('image'); ?>" class='proxiblue-recaptcha'></div>
 </li>
 
-<?php if ($this->canRenderJS()): ?>
-    <script type="text/javascript">
-        var reCaptchaCallback = function () {
-            window.captchas = [];
-            $$('.proxiblue-recaptcha').each(
-                function (elm) {
-                    var cpatchaId = grecaptcha.render(elm.id, {
-                        'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
-                        'callback': function (response) {
-                            // since there are multiple instances of the response text area, populate them all with this response.
-                            // this then will ensure teh correct response is submitted back for this request
-                            $$('.g-recaptcha-response').each(function (elm) {
-                                $(elm).innerText = response;
-                            });
-                            $$('.enable-captcha-clicked').each(function (elm) {
-                                elm.enable();
-                            });
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        window.reCaptchaCallback = function () {
+            var hasInit = window.captchaHasInit;
+            if (hasInit == undefined) {
+                // used in checkout to reset captchas
+                window.captchas = [];
+                var reCaptchaElements = $$('.proxiblue-recaptcha');
+                reCaptchaElements.each(
+                    function (elm) {
+                        var form = elm.up('form');
+                        if (!form) {
+                            return;
                         }
+                        var varienForm = new VarienForm(form.id);
+                        var cpatchaId = grecaptcha.render(elm.id, {
+                            <?php if($theme == 'invisible'):?>
+                            "size": "invisible",
+                            <?php endif; ?>
+                            <?php if($this->getIsolate()):?>
+                            "isolated": true,
+                            <?php endif; ?>
+                            'sitekey': '<?php echo $captcha->getPublicKey(); ?>',
+                            'badge': '<?php echo $captcha->getPosition(); ?>',
+                            'callback': function (response) {
+                                // since there are multiple instances of the response text area, populate them all
+                                // with this response.
+                                // this then will ensure the correct response is submitted back for this request
+                                $$('.g-recaptcha-response').each(function (elm) {
+                                    $(elm).innerText = response;
+                                });
+                                $$('.enable-captcha-clicked').each(function (elm) {
+                                    elm.enable();
+                                });
+                                if(window.recaptchaPassBackRecaptchaResponse != 1) {
+                                    window.parentMehod();
+                                } else {
+                                    window.parentMehod(response);
+                                }
+
+                            }
+                        });
+                        window.captchas.push(cpatchaId);
+                        window.captchaHasInit = 1;
+                        <?php if($theme == 'invisible'):?>
+                        form.addEventListener('submit', function (e) {
+                            /**
+                             * Prevent an ajax submit form, which already has a submit event from triggering this submit event as well
+                             * If you place a form via ajax, first set this flag, and assign the resulting function to be called as window.parentMehod
+                             */
+                            if(window.recaptchaHasInterceptedFormSubmit != 1) {
+                                e.preventDefault();
+                                if (varienForm.validator.validate()) {
+                                    window.parentMehod = function () {
+                                        form.submit()
+                                    };
+                                    grecaptcha.execute();
+                                }
+                            }
+                        });
+                        elm.select('iframe').each(function (iframe) {
+                            iframe.writeAttribute('tabindex', '-1');
+                        });
+                        <?php endif; ?>
+
                     });
-                    window.captchas.push(cpatchaId);
-                }
-            );
-        };
-    </script>
-    <script
-            src="https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>"
-            async
-            defer></script>
-<?php endif; ?>
-<script>document.observe('billing-request:completed', function (re,result) {
-        window.captchas.forEach(function(id) {
-            grecaptcha.reset(id);
-        });
+
+                <?php if($theme == 'invisible'):?>
+                VarienForm.prototype.submit = VarienForm.prototype.submit.wrap(function (parentMethod) {
+                    window.parentMehod = parentMethod;
+                    if (this.validator && this.validator.validate()) {
+                        // this captures the main login form on checkout, potentially others on site
+                        // since there is the potential to other areas using this execute, it is not specific to
+                        // a particular captcha
+                        grecaptcha.execute();
+                    }
+                    return false;
+                });
+
+                <?php $handle = $this->getLayout()->getUpdate()->getHandles(); ?>
+                <?php if(in_array('checkout_onepage_index', $handle)): ?>
+                Billing.prototype.save = Billing.prototype.save.wrap(function (parentMethod) {
+                    // test if guest checkout is enabled
+                    window.parentMehod = parentMethod;
+                    var skipParent = false;
+                    if (checkout.method == 'guest' && $('captcha-image-box-guest_checkout') != undefined) {
+                        skipParent = true;
+                        grecaptcha.execute();
+
+                    }
+                    if (checkout.method == 'register' && $('captcha-image-box-register_during_checkout') != undefined) {
+                        skipParent = true;
+                        grecaptcha.execute();
+                    }
+                    if (skipParent == false) {
+                        parentMethod();
+                    } else {
+                        return false;
+                    }
+                });
+                    <?php endif; ?>
+                <?php endif; ?>
+                };
+                document.observe('billing-request:completed', function (re, result) {
+                    window.captchas.forEach(function (id) {
+                        grecaptcha.reset(id);
+                    });
+                });
+                document.observe('login:setMethod', function (re, result) {
+                    window.captchas.forEach(function (id) {
+                        grecaptcha.reset(id);
+                    });
+                });
+            };
+        var scriptInjected = false;
+        var scriptElm = document.createElement("script");
+        scriptElm.src = "https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit&hl=<?php echo $captcha->getLanguage(); ?>";
+        var scripts = document.getElementsByTagName('script');
+        for (var i = scripts.length; i--;) {
+            if (scripts[i].src == scriptElm.src) scriptInjected = true;
+        }
+        if(scriptInjected == false) {
+            scriptElm.defer = true;
+            scriptElm.async = true;
+            document.getElementsByTagName('head')[0].appendChild(scriptElm);
+        }
     });
 </script>
+

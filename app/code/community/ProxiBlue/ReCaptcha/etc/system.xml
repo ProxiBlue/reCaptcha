@@ -6,6 +6,35 @@
 				<captcha translate="label">
 					<show_in_store>1</show_in_store>
 					<fields>
+						<enable translate="label">
+							<label>Enable CAPTCHA</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<theme translate="label">
+							<label>Recaptcha Theme</label>
+							<frontend_type>select</frontend_type>
+							<source_model>proxiblue_recaptcha/config_theme</source_model>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable><type>recaptcha</type></depends>
+						</theme>
+						<position translate="label">
+							<label>Position</label>
+							<frontend_type>select</frontend_type>
+							<source_model>proxiblue_recaptcha/config_position</source_model>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable><type>recaptcha</type><theme>invisible</theme></depends>
+						</position>
 						<font>
 							<depends>
 								<type>zend</type>
@@ -38,9 +67,8 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends>
-								<type>recaptcha</type>
-							</depends>
+							<depends><enable>1</enable><type>recaptcha</type><theme separator=",">robot,invisible</theme></depends>
+							<comment>Attention: 'I am not a robot' and 'Invisible' uses different keys. You must update this key if you change the theme option.</comment>
 						</public_key>
 						<private_key translate="label">
 							<label>Secret Key (Private Key)</label>
@@ -49,9 +77,8 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends>
-								<type>recaptcha</type>
-							</depends>
+							<depends><enable>1</enable><type>recaptcha</type><theme separator=",">robot,invisible</theme></depends>
+							<comment>Attention: 'I am not a robot' and 'Invisible' uses different keys. You must update this key if you change the theme option.</comment>
 						</private_key>
 						<language translate="label">
 							<label>Language</label>
@@ -61,9 +88,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends>
-								<type>recaptcha</type>
-							</depends>
+							<depends><enable>1</enable><type>recaptcha</type></depends>
 						</language>
 					</fields>
 				</captcha>
@@ -74,6 +99,35 @@
 				<captcha translate="label">
                     <show_in_store>1</show_in_store>
 					<fields>
+						<enable translate="label">
+							<label>Enable CAPTCHA on Frontend</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<theme translate="label">
+							<label>Recaptcha Theme</label>
+							<frontend_type>select</frontend_type>
+							<source_model>proxiblue_recaptcha/config_theme</source_model>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable><type>recaptcha</type></depends>
+						</theme>
+						<position translate="label">
+							<label>Position</label>
+							<frontend_type>select</frontend_type>
+							<source_model>proxiblue_recaptcha/config_position</source_model>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable><type>recaptcha</type><theme>invisible</theme></depends>
+						</position>
 						<font>
 							<depends>
 								<type>zend</type>
@@ -106,9 +160,8 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends>
-								<type>recaptcha</type>
-							</depends>
+							<depends><enable>1</enable><type>recaptcha</type><theme separator=",">robot,invisible</theme></depends>
+							<comment>Attention: 'I am not a robot' and 'Invisible' uses different keys. You must update this key if you change the theme option.</comment>
 						</public_key>
 						<private_key translate="label">
 							<label>Secret Key (Private Key)</label>
@@ -117,9 +170,8 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends>
-								<type>recaptcha</type>
-							</depends>
+							<depends><enable>1</enable><type>recaptcha</type><theme separator=",">robot,invisible</theme></depends>
+							<comment>Attention: 'I am not a robot' and 'Invisible' uses different keys. You must update this key if you change the theme option.</comment>
 						</private_key>
 						<language translate="label">
 							<label>Language</label>
@@ -129,9 +181,7 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-							<depends>
-								<type>recaptcha</type>
-							</depends>
+							<depends><enable>1</enable><type>recaptcha</type></depends>
 						</language>
 					</fields>
 				</captcha>
