@@ -1,5 +1,23 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
+    <default>
+        <reference name="footer.newsletter">
+            <block type="captcha/captcha" name="recaptcha">
+                <action method="setFormId">
+                    <formId>newsletter_subscribe</formId>
+                    <isolate>true</isolate>
+                </action>
+            </block>
+        </reference>
+        <reference name="left.newsletter">
+            <block type="captcha/captcha" name="recaptcha">
+                <action method="setFormId">
+                    <formId>newsletter_subscribe</formId>
+                    <isolate>true</isolate>
+                </action>
+            </block>
+        </reference>
+    </default>
     <contacts_index_index>
         <reference name="contactForm">
             <block type="captcha/captcha" name="recaptcha">
