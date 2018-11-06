@@ -1,7 +1,7 @@
 <?php $captcha = $this->getCaptchaModel() ?>
 <?php $theme = $captcha->getTheme(); ?>
 
-<li id="<?php echo $captcha->getElementId(); ?>">
+<li id="<?php echo $captcha->getElementId(); ?>" style="list-style: none">
     <div id="<?php echo $captcha->getElementId('container'); ?>" class='proxiblue-recaptcha captcha-image-box-<?php echo $this->getFormId(); ?>'></div>
 </li>
 
@@ -19,7 +19,7 @@
                         if (!form) {
                             return;
                         }
-                        var varienForm = new VarienForm(form.id);
+                        var adminVarienForm = new varienForm(form.id);
                         var cpatchaId = grecaptcha.render(elm.id, {
                             <?php if($theme == 'invisible'):?>
                             "size": "invisible",
@@ -57,7 +57,7 @@
                              */
                             if(window.recaptchaHasInterceptedFormSubmit != 1) {
                                 e.preventDefault();
-                                if (varienForm.validator.validate()) {
+                                if (adminVarienForm.validator.validate()) {
                                     window.parentMehod = function () {
                                         form.submit()
                                     };
@@ -73,7 +73,7 @@
                     });
 
                 <?php if($theme == 'invisible'):?>
-                VarienForm.prototype.submit = VarienForm.prototype.submit.wrap(function (parentMethod) {
+                varienForm.prototype.submit = varienForm.prototype.submit.wrap(function (parentMethod) {
                     window.parentMehod = parentMethod;
                     if (this.validator && this.validator.validate()) {
                         // this captures the main login form on checkout, potentially others on site
