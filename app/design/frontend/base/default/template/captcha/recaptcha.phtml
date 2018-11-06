@@ -2,7 +2,7 @@
 <?php $theme = $captcha->getTheme(); ?>
 
 <li id="<?php echo $captcha->getElementId(); ?>">
-    <div id="<?php echo $captcha->getElementId('image'); ?>" class='proxiblue-recaptcha'></div>
+    <div id="<?php echo $captcha->getElementId('image'); ?>" class='proxiblue-recaptcha captcha-image-box-<?php echo $this->getFormId(); ?>'></div>
 </li>
 
 <script>
@@ -90,12 +90,14 @@
                     // test if guest checkout is enabled
                     window.parentMehod = parentMethod;
                     var skipParent = false;
-                    if (checkout.method == 'guest' && $('captcha-image-box-guest_checkout') != undefined) {
+                    if (checkout.method == 'guest'
+                        && document.querySelector('.captcha-image-box-guest_checkout') !== null) {
                         skipParent = true;
                         grecaptcha.execute();
 
                     }
-                    if (checkout.method == 'register' && $('captcha-image-box-register_during_checkout') != undefined) {
+                    if (checkout.method == 'register'
+                        && document.querySelector('.captcha-image-box-register_during_checkout') !== null) {
                         skipParent = true;
                         grecaptcha.execute();
                     }
