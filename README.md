@@ -275,54 +275,19 @@ The core functionality can easily be used to produce spam.
 The process is that an account is created, then a product is added, then spam is generated via the share functionality, with spam messages in the message field.
 Adding reCaptcha allows you to block this.
 
-* Enable in admin under Customer Configuration by selecting 'Wishlist Sharing' in available forms list
-* Unfortunately the core wishlist sharing form does not have an after form elements block, so you will need to adjust your form to display the captcha.
 
- Edit the wishlist sharing form located here: 
- 
-    app/design/frontend/[rwd|base|your package]/[default|your theme]/template/wishlist/sharing.phtml
- 
- place the following line into the form, anywhere within the ```<ul class="form-list">``` element.
- a good place will be just before the closing ```</ul>``` tag 
+** Magento introduced wishlist capctha from 1.9.4, or with SUPEE 10975 **
 
-    <ul>
-        <?php echo $this->getChildHtml('recaptcha'); ?>
-    </ul>    
+The custom wishlist recaptcha code of this module was removed, favouring the core functionality.
+If you require wishlist recapctha in pre 1.9.4 without SUPEE-10975, install version 2.0.1 
 
- Entered values will be retained upon incorrect captcha entry  
- 
 Product Email a Friend Captcha
 ------------------------------
 
-The core functionality can easily be used to produce spam. 
-The process is that an account is created, then a product is Emailed to a Friend, then spam is generated via the send functionality, with spam messages in the message field.
-Adding reCaptcha allows you to block this.
+** Magento introduced capctha from 1.9.4, or with SUPEE 10975 **
 
-* Enable in admin under Customer Configuration by selecting 'Email a Friend' in available forms list
-
-Unfortunately the core Send a Friend form does not have an after form elements block, so you will need to adjust your form to display the captcha.
-Additionally, the form allows you to add/remove recipients by adding/removing more recipient rows.
-Some changes need to be made to the base form (copy to your own theme folder) to accommodate this functionality, else the recipients will be lost upon incorrect captcha.
-
-The changes are done to retain the core add/remove functionality of the form. 
-Since these changes are fairly big, I have provided a diff which you can apply, and for reference there is also a gist with the complete form ready to use (if you have no custom changes in your theme for the ```sendfiend/send.phtml``` template, you can simply just place the provided gist file to your theme as the template ```sendfiend\send.phtml```)
-
-[Full file](https://gist.github.com/ProxiBlue/bff88b184c9c0e44997ff6ae05468b01)
-[diff](https://gist.github.com/ProxiBlue/fdf28f9bf8b678e9aa30c475d681f974) 
-
-####Explaining the changes: 
-
-[recipients counter](https://gist.github.com/ProxiBlue/bff88b184c9c0e44997ff6ae05468b01#file-gistfile1-txt-L35)
-This change pre-sets the counter used to add new recipients. By default this is 0, since no recipients are initially present
-
-[pre propulate set receipients](https://gist.github.com/ProxiBlue/bff88b184c9c0e44997ff6ae05468b01#file-gistfile1-txt-L108) Injects the already defined recipients back into the form, after any failed captcha
-
-[inject captcha form](https://gist.github.com/ProxiBlue/bff88b184c9c0e44997ff6ae05468b01#file-gistfile1-txt-L102) ads the reCaptcha form to the display
- 
- 
- 
-Entered values will be retained upon incorrect captcha entry    
-
+The custom recaptcha code of this module was removed, favouring the core functionality.
+If you require recapctha in pre 1.9.4 without SUPEE-10975, install version 2.0.1 
 
 Newsletter Subscribe Captcha
 ----------------------------

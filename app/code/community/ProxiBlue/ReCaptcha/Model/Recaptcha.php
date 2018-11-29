@@ -12,13 +12,6 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
 {
 
     /**
-     * @var array
-     *
-     * normally recaptcha will not show for logged in users. Form ids listed here will also appear when logged in
-     *
-     */
-    protected $_alwaysShow = array('user_wishlist', 'product_sendtofriend');
-    /**
      * Key in session for captcha code
      */
     const SESSION_WORD = 'word';
@@ -201,10 +194,6 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     {
         if(!$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())){
             return false;
-        }
-
-        if (in_array($this->_formId, $this->_alwaysShow)) {
-            return true;
         }
 
         return ($this->_isShowAlways() || $this->_isOverLimitAttempts($login)
