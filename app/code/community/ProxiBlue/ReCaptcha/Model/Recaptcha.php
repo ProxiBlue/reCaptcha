@@ -35,7 +35,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     protected $_theme = 'invisible';
     protected $_private_key = null;
     protected $_public_key = null;
-    protected $_position = 'bottomleft';
+    protected $_position = 'bottomright';
 
 
     /**
