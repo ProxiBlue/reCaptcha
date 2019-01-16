@@ -35,6 +35,9 @@ class ProxiBlue_ReCaptcha_Model_Observer
                     Mage::getSingleton('customer/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                     $controller->getResponse()->setRedirect(Mage::getUrl('*/*/'));
                 }
+            } else {
+                // clear session data so it does not persist
+                Mage::getSingleton('customer/session')->unsFormData();
             }
         }
 
