@@ -113,6 +113,17 @@
                 <position>bottomright</position>
                 <language>en</language>
                 <mode>always</mode>
+                <always_for>
+                    <user_create>1</user_create>
+                    <user_forgotpassword>1</user_forgotpassword>
+                    <guest_checkout>1</guest_checkout>
+                    <register_during_checkout>1</register_during_checkout>
+                    <wishlist_sharing>1</wishlist_sharing>
+                    <sendfriend_send>1</sendfriend_send>
+                    <user_contact>1</user_contact>
+                    <user_review>1</user_review>
+                    <newsletter_subscribe>1</newsletter_subscribe>
+                </always_for>
             </captcha>
         </customer>
         <captcha translate="label">

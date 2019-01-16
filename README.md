@@ -364,7 +364,15 @@ If, you also have the following:  ```<reference name="product.review.form">``` t
 * It may be you have old captcha settings stuck in db, and they need to be cleared out.
 
 Run this SQL against your db: ```DELETE FROM core_config_data where path like '%captcha%'```
-Thsi will also wipe your api keys, so you will need to re-setup admin.
+This will also wipe your api keys, so you will need to re-setup admin.
+
+Admin Forgot password is not working
+====================================
+
+This is NOT caused by the recapctha module/code, and is a core bug
+
+ref: https://magento.stackexchange.com/questions/125453/admin-forgot-password-does-not-work-with-x-content-type-options-nosniff-header
+
 
 
 
