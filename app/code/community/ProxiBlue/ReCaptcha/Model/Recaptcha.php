@@ -167,6 +167,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
         $response = $httpRequest->request('POST');
         if ($response->getStatus() != 200) {
             $this->_debug('Bad response from captcha gateway. we got ' . $response->getStatus());
+            $this->_debug('$httpRequest => ' . print_r($httpRequest,true));
             Mage::throwException('Bad response from captcha gateway. we got ' . $response->getStatus());
         }
 
