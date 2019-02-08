@@ -93,13 +93,19 @@
                     if (checkout.method == 'guest'
                         && document.querySelector('.captcha-image-box-guest_checkout') !== null) {
                         skipParent = true;
-                        grecaptcha.execute();
+                        var validator = new Validation(this.form);
+                        if (validator.validate()) {
+                            grecaptcha.execute();
+                        }
 
                     }
                     if (checkout.method == 'register'
                         && document.querySelector('.captcha-image-box-register_during_checkout') !== null) {
                         skipParent = true;
-                        grecaptcha.execute();
+                        var validator = new Validation(this.form);
+                        if (validator.validate()) {
+                            grecaptcha.execute();
+                        }
                     }
                     if (skipParent == false) {
                         parentMethod();
