@@ -32,11 +32,11 @@ changes to core functionality, and allows your developer to integrate into your 
 Installing
 ==========
 
-VESRIONS:
+VERSIONS:
 =========
 
 If you have magento 1.9.4, *OR* you have Magento < 1.9.4 + SUPEE 10975 patch installed, you must use release 2.1.x or greater.
-If you have Magento < 1.9.4 and not pacthes with SUPEE 10975, then you must use version 2.0.1 (the most up-to-date version prior to 1.9.4 and SUPEE 10975 patch)
+If you have Magento < 1.9.4 and not pacthed with SUPEE 10975, then you must use version 2.0.1 (the most up-to-date version prior to 1.9.4 and SUPEE 10975 patch)
 
 Your *should* patch to SUPEE 10975 else your store is a security risk!
 
