@@ -122,6 +122,7 @@
                     <sendfriend_send>1</sendfriend_send>
                     <user_contact>1</user_contact>
                     <user_review>1</user_review>
+                    <review-form>1</review-form>
                     <newsletter_subscribe>1</newsletter_subscribe>
                 </always_for>
             </captcha>
@@ -135,6 +136,9 @@
                     <user_review>
                         <label>Reviews</label>
                     </user_review>
+                    <review-form>
+                        <label>Reviews in Product View</label>
+                    </review-form>
                     <newsletter_subscribe>
                         <label>Newsletter Subscribe</label>
                     </newsletter_subscribe>
