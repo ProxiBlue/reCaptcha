@@ -85,6 +85,13 @@
                 });
 
                 <?php $handle = $this->getLayout()->getUpdate()->getHandles(); ?>
+                
+                <?php if(in_array('firecheckout_index_index', $handle)): ?>
+                document.observe('firecheckout:updateBefore', function(url, parameters) {
+                grecaptcha.execute();
+                });
+                <?php endif;?>
+                
                 <?php if(in_array('checkout_onepage_index', $handle)): ?>
                 Billing.prototype.save = Billing.prototype.save.wrap(function (parentMethod) {
                     // test if guest checkout is enabled
