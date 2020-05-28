@@ -64,8 +64,8 @@ By Composer:
 
 ```
    "require": {
-           "proxiblue/recaptcha":"*"
-      },
+       "proxiblue/recaptcha":"*"
+   },
    "repositories": [
         {
             "type": "vcs",
