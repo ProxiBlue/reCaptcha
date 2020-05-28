@@ -67,9 +67,9 @@ By Composer:
            "proxiblue/recaptcha":"*"
       },
    "repositories": [
-      {
+        {
             "type": "vcs",
-                "url": "https://github.com/ProxiBlue/reCaptcha.git"
+            "url": "https://github.com/ProxiBlue/reCaptcha.git"
         }
     ],
 ```
