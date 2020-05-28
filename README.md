@@ -64,12 +64,12 @@ By Composer:
 
 ```
    "require": {
-           "proxiblue/recaptcha":"*"
-      },
+       "proxiblue/recaptcha": "*"
+   },
    "repositories": [
-      {
+        {
             "type": "vcs",
-                "url": "https://github.com/ProxiBlue/reCaptcha.git"
+            "url": "https://github.com/ProxiBlue/reCaptcha.git"
         }
     ],
 ```
