@@ -15,7 +15,6 @@ class ProxiBlue_ReCaptcha_Helper_Data extends Mage_Captcha_Helper_Data {
 	const RECAPTCHA_API_SERVER = "https://www.google.com";
 	const RECAPTCHA_API_PATH = "/recaptcha/api";
 	const RECAPTCHA_VERIFY_SERVER = "www.google.com";
-	const RECAPTCHA_VERIFY_PATH = "verify";
     const RECAPTCHA_SITEVERIFY_PATH = "siteverify";
 
 

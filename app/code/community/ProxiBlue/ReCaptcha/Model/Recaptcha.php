@@ -130,7 +130,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
                                 'challenge' => $request->getParam('recaptcha_challenge_field'),
                                 'response' => $request->getParam('recaptcha_response_field'),
                 );
-                $path = ProxiBlue_ReCaptcha_Helper_Data::RECAPTCHA_VERIFY_PATH;
+                $path = ProxiBlue_ReCaptcha_Helper_Data::RECAPTCHA_SITEVERIFY_PATH;
                 $this->_debug("sending to " . $path . " params of " . print_r($params, true));
                 $result = $this->_sendRequest($path, $params);
                 $this->_debug("result is : " . $result);
