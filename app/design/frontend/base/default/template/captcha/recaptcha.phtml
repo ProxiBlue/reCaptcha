@@ -87,9 +87,12 @@
                 <?php $handle = $this->getLayout()->getUpdate()->getHandles(); ?>
                 
                 <?php if(in_array('firecheckout_index_index', $handle)): ?>
-                document.observe('firecheckout:updateBefore', function(url, parameters) {
-                grecaptcha.execute();
-                });
+                    document.observe('firecheckout:updateBefore', function(url, parameters) {
+                        window.captchas.forEach(function (id) {
+                            grecaptcha.reset(id);
+                        });
+                        grecaptcha.execute();
+                    });
                 <?php endif;?>
                 
                 <?php if(in_array('checkout_onepage_index', $handle)): ?>
