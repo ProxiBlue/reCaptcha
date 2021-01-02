@@ -3,7 +3,8 @@
   "type": "magento-module",
   "license": "OSL-3.0",
   "homepage": "https://github.com/ProxiBlue/reCaptcha",
-  "description": "Clean integration of Google reCaptcha to magento",
+  "description": "Clean integration of Google reCaptcha to OpenMage",
+  "version": "2.3.5"
   "authors": [
     {
       "name": "Lucas van Staden",
