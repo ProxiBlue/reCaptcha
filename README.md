@@ -1,7 +1,7 @@
 reCaptcha
 =========
 
-Drop-In Replacement of Magento's core Captcha system with Googles reCaptcha
+Drop-In Replacement of OpenMage core Captcha system with Googles reCaptcha
 
 http://www.proxiblue.com.au/blog/magento-recaptcha/
 
@@ -37,6 +37,7 @@ VERSIONS:
 
 If you have magento 1.9.4, *OR* you have Magento < 1.9.4 + SUPEE 10975 patch installed, you must use release 2.1.x or greater.
 If you have Magento < 1.9.4 and not pacthed with SUPEE 10975, then you must use version 2.0.1 (the most up-to-date version prior to 1.9.4 and SUPEE 10975 patch)
+If you have OpenMage use release 2.1.x or greater.
 
 Your *should* patch to SUPEE 10975 else your store is a security risk!
 
@@ -58,6 +59,9 @@ By GIT:
 By Composer:
 ------------
 
+Direct from GitHub repo:
+------------------------
+
 * disable compilation
 
 * Update the following to sections in your composer file:
@@ -77,6 +81,24 @@ By Composer:
 * Clear cache
 * re-enable compilation
 
+Using Repman.io package manager:
+--------------------------------
+
+In the root of your OpenMage install, run ythe following commands:
+
+```
+composer config --global --auth http-basic.github.repo.repman.io token ec42f7dd9269f0d9355f94279d221d3f07c4f8c70c9344a1ef27ddbc0a07a8d6
+```
+
+Add these lines to your composer.json file, or add a new repository URL if you already have one or more:
+
+```
+{
+    "repositories": [
+        {"type": "composer", "url": "https://github.repo.repman.io"}
+    ]
+}
+```
 
 Disabling:
 ==========
