@@ -5,7 +5,7 @@ Drop-In Replacement of OpenMage core Captcha system with Googles reCaptcha
 
 http://www.proxiblue.com.au/blog/magento-recaptcha/
 
-* Supports all native magento captcha areas
+* Supports all native OpenMage captcha areas
 * Supports placing captcha into 
    
   * Contact Us form, 
@@ -21,12 +21,13 @@ http://www.proxiblue.com.au/blog/magento-recaptcha/
 Requirements
 ============
 
-* Core magento onepage checkout for reCaptcha in Checkout.
-* There is no plans to extend this extension to use 3rd party checkouts, however PRs are welcomed
+* Core onepage checkout for reCaptcha in Checkout.
+* There is no plans to extend this extension to use 3rd party checkouts, however PRs are welcomed 
+** Works with FireCheckout - https://github.com/ProxiBlue/reCaptcha/pull/40 
 * Feel free to extend if you know how. PRs welcomed.
 * You require a bit of knowledge on how to extend theme templates. This reCaptcha does not rewrite or extend core 
 functionality, so it does not replace theme files. Clear instructions are given. It works 'out-the-box' in all areas 
-where core magento captcha works. It is more 'developer' centric, when you don't want a reCaptcha module to make major 
+where core OpenMage captcha works. It is more 'developer' centric, when you don't want a reCaptcha module to make major 
 changes to core functionality, and allows your developer to integrate into your themes. Clear instructions are given.
 
 Installing
@@ -52,7 +53,7 @@ By GIT:
 
 * clone this repo
 * disable compilation if you use that.
-* copy the files from the repo into the base folder of your magento install
+* copy the files from the repo into the base folder of your magento / OpenMage install
 * clear your cache
 * re-enable compilation
 
@@ -62,7 +63,7 @@ By Composer:
 Direct from GitHub repo:
 ------------------------
 
-* disable compilation
+* disable compilation (mageno 1 only, OpenMage have removed the compilation feature)
 
 * Update the following to sections in your composer file:
 
@@ -77,14 +78,14 @@ Direct from GitHub repo:
         }
     ],
 ```
-* Update composer: ```composer.phar update```
+* Update composer: ```composer update```
 * Clear cache
-* re-enable compilation
+* re-enable compilation (mageno 1 only, OpenMage have removed the compilation feature)
 
-Using Repman.io package manager:
---------------------------------
+Using composer package:
+-----------------------
 
-In the root of your OpenMage install, run ythe following commands:
+In the root of your OpenMage install, run the following commands:
 
 ```
 composer config --global --auth http-basic.github.repo.repman.io token ec42f7dd9269f0d9355f94279d221d3f07c4f8c70c9344a1ef27ddbc0a07a8d6
@@ -104,7 +105,7 @@ Disabling:
 ==========
 
 * Disable compilation
-* Edit the file <magento root>/app/etc/modules/ProxiBlue_ReCaptcha.xml, and set the active to false.
+* Edit the file <site root>/app/etc/modules/ProxiBlue_ReCaptcha.xml, and set the active to false.
 * Remove any theme captcha insertion code as described below in all sections
 * Clear Cache
 * Enable compilation
