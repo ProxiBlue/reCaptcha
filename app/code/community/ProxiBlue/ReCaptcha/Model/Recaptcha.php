@@ -194,6 +194,9 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     public function isRequired($login = null)
     {
         if(!$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())){
+            if($this->_formId == 'recapctha_checkout') {
+                return true;
+            }
             return false;
         }
 
@@ -207,5 +210,36 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
             $message = "Form ID: ". $this->_formId . "=>" . $message;
             Mage::log($message, null, 'recapctha.log');
         }
+    }
+
+    /**
+     * Retrieve list of forms where captcha must be shown
+     *
+     * For frontend this list is based on current website
+     *
+     * @return array
+     */
+    protected function _getTargetForms()
+    {
+        $formsString = (string) $this->_getHelper()->getConfigNode('forms');
+        $forms =  explode(',', $formsString);
+        // remove either checkout as guest or register at checkout, and if either is there, replace with a generic checkout
+        if (($key = array_search('register_during_checkout', $forms)) !== false) {
+            unset($forms[$key]);
+            if (Mage::registry('has_recapctha') == false && $this->_formId == 'register_during_checkout') {
+                $forms[] = 'recapctha_checkout';
+                $this->_formId = 'recapctha_checkout';
+                Mage::register('has_recapctha', true, true);
+            }
+        }
+        if (($key = array_search('guest_checkout', $forms)) !== false) {
+            unset($forms[$key]);
+            if (Mage::registry('has_recapctha') == false && $this->_formId == 'guest_checkout') {
+                $forms[] = 'recapctha_checkout';
+                $this->_formId = 'recapctha_checkout';
+                Mage::register('has_recapctha', true, true);
+            }
+        }
+        return array_unique($forms);
     }
 }

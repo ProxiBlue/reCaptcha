@@ -192,5 +192,41 @@ class ProxiBlue_ReCaptcha_Model_Observer
         return $this;
     }
 
+    /**
+     * Check Captcha On Checkout Register Page
+     *
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function checkCheckout($observer)
+    {
+        $checkoutMethod = Mage::getSingleton('checkout/type_onepage')->getQuote()->getCheckoutMethod();
+        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER) {
+            $formId = 'register_during_checkout';
+            $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+            if ($captchaModel->isRequired()) {
+                $controller = $observer->getControllerAction();
+                if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
+                    $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                    $result = array('error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+                }
+            }
+        }
+        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_GUEST) {
+            $formId = 'guest_checkout';
+            $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+            if ($captchaModel->isRequired()) {
+                $controller = $observer->getControllerAction();
+                if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
+                    $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                    $result = array('error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+                }
+            }
+        }
+        return $this;
+    }
+
 
 }
