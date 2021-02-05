@@ -100,8 +100,7 @@
                     // test if guest checkout is enabled
                     window.parentMehod = parentMethod;
                     var skipParent = false;
-                    if (checkout.method == 'guest'
-                        && document.querySelector('.captcha-image-box-guest_checkout') !== null) {
+                    if (checkout.method == 'guest') {
                         skipParent = true;
                         var validator = new Validation(this.form);
                         if (validator.validate()) {
@@ -109,8 +108,7 @@
                         }
 
                     }
-                    if (checkout.method == 'register'
-                        && document.querySelector('.captcha-image-box-register_during_checkout') !== null) {
+                    if (checkout.method == 'register') {
                         skipParent = true;
                         var validator = new Validation(this.form);
                         if (validator.validate()) {

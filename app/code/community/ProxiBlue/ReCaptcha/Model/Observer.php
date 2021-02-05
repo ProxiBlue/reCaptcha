@@ -200,10 +200,35 @@ class ProxiBlue_ReCaptcha_Model_Observer
      */
     public function checkCheckout($observer)
     {
+        // both checkout forms get transposed to a form id of 'recapctha_checkout'
+        // ref https://github.com/ProxiBlue/reCaptcha/issues/43
+        $formId = 'recapctha_checkout'; //
+        $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+        if ($captchaModel->isRequired()) {
+            $controller = $observer->getControllerAction();
+            if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
+                $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                $result = array('error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Check Captcha On Checkout as Guest Page
+     *
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function checkGuestCheckout(Varien_Event_Observer $observer)
+    {
+        // both checkout forms get transposed to a form id of 'recapctha_checkout'
+        // ref https://github.com/ProxiBlue/reCaptcha/issues/43
+        $formId = 'recapctha_checkout'; //
+        $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
         $checkoutMethod = Mage::getSingleton('checkout/type_onepage')->getQuote()->getCheckoutMethod();
-        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER) {
-            $formId = 'register_during_checkout';
-            $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_GUEST) {
             if ($captchaModel->isRequired()) {
                 $controller = $observer->getControllerAction();
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
@@ -213,9 +238,23 @@ class ProxiBlue_ReCaptcha_Model_Observer
                 }
             }
         }
-        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_GUEST) {
-            $formId = 'guest_checkout';
-            $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+        return $this;
+    }
+
+    /**
+     * Check Captcha On Checkout Register Page
+     *
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function checkRegisterCheckout($observer)
+    {
+        // both checkout forms get transposed to a form id of 'recapctha_checkout'
+        // ref https://github.com/ProxiBlue/reCaptcha/issues/43
+        $formId = 'recapctha_checkout'; //
+        $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
+        $checkoutMethod = Mage::getSingleton('checkout/type_onepage')->getQuote()->getCheckoutMethod();
+        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER) {
             if ($captchaModel->isRequired()) {
                 $controller = $observer->getControllerAction();
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
