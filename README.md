@@ -405,7 +405,17 @@ This is NOT caused by the recapctha module/code, and is a core bug
 
 ref: https://magento.stackexchange.com/questions/125453/admin-forgot-password-does-not-work-with-x-content-type-options-nosniff-header
 
+There are multiple options for 'Wishlist and Product sharing' optiosn in admin form
+===================================================================================
 
+This was caused by upgrade past version 2.0.1
+
+You need to clear out the old admin config, and resetup the required forms:
+
+```
+delete from core_config_data where path = 'customer/captcha/forms';
+delete from core_config_data where path = 'admin/captcha/forms';
+```
 
 
 Our Premium extensions:
