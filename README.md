@@ -408,7 +408,8 @@ ref: https://magento.stackexchange.com/questions/125453/admin-forgot-password-do
 There are multiple options for 'Wishlist and Product sharing' optiosn in admin form
 ===================================================================================
 
-This was caused by upgrade past version 2.0.1
+You are running version <= 2.0.1 on a more up-to-date version of core.
+Upgrade the module past 2.0.1
 
 You need to clear out the old admin config, and resetup the required forms:
 
