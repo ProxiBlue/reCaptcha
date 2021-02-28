@@ -195,7 +195,10 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     {
         if(!$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())){
             if($this->_formId == 'recapctha_checkout') {
-                return true;
+                if(in_array('guest_checkout', $this->_getTargetForms())
+                    || in_array('register_during_checkout', $this->_getTargetForms())) {
+                    return true;
+                }
             }
             return false;
         }
