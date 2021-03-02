@@ -36,6 +36,8 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     protected $_private_key = null;
     protected $_public_key = null;
     protected $_position = 'bottomright';
+    protected $_originalFormId = '';
+    protected $_forms = [];
 
 
     /**
@@ -194,11 +196,8 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     public function isRequired($login = null)
     {
         if(!$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())){
-            if($this->_formId == 'recapctha_checkout') {
-                if(in_array('guest_checkout', $this->_getTargetForms())
-                    || in_array('register_during_checkout', $this->_getTargetForms())) {
+            if($this->_formId == 'recapctha_checkout' && in_array($this->_originalFormId, $this->_forms)) {
                     return true;
-                }
             }
             return false;
         }
@@ -225,9 +224,11 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     protected function _getTargetForms()
     {
         $formsString = (string) $this->_getHelper()->getConfigNode('forms');
-        $forms =  explode(',', $formsString);
+        $this->_forms =  explode(',', $formsString);
+        $forms = $this->_forms;
         // remove either checkout as guest or register at checkout, and if either is there, replace with a generic checkout
-        if (($key = array_search('register_during_checkout', $forms)) !== false) {
+        $this->_originalFormId = $this->_formId;
+        if (($key = array_search('register_during_checkout', $this->_forms)) !== false) {
             unset($forms[$key]);
             if (Mage::registry('has_recapctha') == false && $this->_formId == 'register_during_checkout') {
                 $forms[] = 'recapctha_checkout';
@@ -235,7 +236,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
                 Mage::register('has_recapctha', true, true);
             }
         }
-        if (($key = array_search('guest_checkout', $forms)) !== false) {
+        if (($key = array_search('guest_checkout', $this->_forms)) !== false) {
             unset($forms[$key]);
             if (Mage::registry('has_recapctha') == false && $this->_formId == 'guest_checkout') {
                 $forms[] = 'recapctha_checkout';
