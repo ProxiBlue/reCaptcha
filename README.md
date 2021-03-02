@@ -273,6 +273,13 @@ Note the inclusion of two extra variables in the POST:
      json: 1,
      gcr: $j("#g-recaptcha-response").val()
 
+Use in Checkout OnePage
+-----------------------
+
+Selecting 'Checkout as Guest' or 'Register at checkout' no longer has a ny difference in the outcome of checkout reCaptcha
+If EITHER is selected, you will have an active reCapctha at the BILLING section. 
+This is due to how invisible reCacptha works on the page, and I currently see no need to make this work individually
+
 Use in CMS Page
 ----------------
 
