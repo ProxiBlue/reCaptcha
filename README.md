@@ -6,15 +6,15 @@ Drop-In Replacement of OpenMage core Captcha system with Googles reCaptcha
 http://www.proxiblue.com.au/blog/magento-recaptcha/
 
 * Supports all native OpenMage captcha areas
-* Supports placing captcha into 
-   
-  * Contact Us form, 
-  * CMS pages (contact us in cms page), 
-  * Products Reviews 
+* Supports placing captcha into
+
+  * Contact Us form,
+  * CMS pages (contact us in cms page),
+  * Products Reviews
   * Customer Wishlist Sharing
   * Product 'Email a friend'
   * Newsletter Subscribe
- 
+
 * Supports Invisible reCaptcha (now the default) with option to set badge position
 * Supports the 'I am not a robot' reCaptcha (just in case you don't want invisible)
 
@@ -22,12 +22,12 @@ Requirements
 ============
 
 * Core onepage checkout for reCaptcha in Checkout.
-* There is no plans to extend this extension to use 3rd party checkouts, however PRs are welcomed 
-** Works with FireCheckout - https://github.com/ProxiBlue/reCaptcha/pull/40 
+* There is no plans to extend this extension to use 3rd party checkouts, however PRs are welcomed
+** Works with FireCheckout - https://github.com/ProxiBlue/reCaptcha/pull/40
 * Feel free to extend if you know how. PRs welcomed.
-* You require a bit of knowledge on how to extend theme templates. This reCaptcha does not rewrite or extend core 
-functionality, so it does not replace theme files. Clear instructions are given. It works 'out-the-box' in all areas 
-where core OpenMage captcha works. It is more 'developer' centric, when you don't want a reCaptcha module to make major 
+* You require a bit of knowledge on how to extend theme templates. This reCaptcha does not rewrite or extend core
+functionality, so it does not replace theme files. Clear instructions are given. It works 'out-the-box' in all areas
+where core OpenMage captcha works. It is more 'developer' centric, when you don't want a reCaptcha module to make major
 changes to core functionality, and allows your developer to integrate into your themes. Clear instructions are given.
 
 Installing
@@ -162,13 +162,13 @@ Captcha was disabled in the RWD theme that magento 1.9 uses.
 
 This was done by simply placing an empty layout xml file into the theme.
 
-To make captcha work in magento 1.9: 
+To make captcha work in magento 1.9:
 
 * Place a copy of the base captcha.xml file into your own theme layout folder.
 
    cp app/design/frontend/base/default/layout/captcha.xml app/design/frontend/YOUR_PACKAGE/THEME/layout/captcha.xml
 
-* or, delete that file from the rwd theme to fallback to base, 
+* or, delete that file from the rwd theme to fallback to base,
 
     rm app/design/frontend/rwd/default/layout/captcha.xml
 
@@ -180,10 +180,10 @@ Contact Us Captcha
 * Enable in admin under Customer Configuration by selecting COntacts in available forms list
 * Unfortunately the core contact us form does not have before or after form elements block, so you will need to adjust your contact us form to display the capctha.
 
- Edit the contact form located here: 
- 
+ Edit the contact form located here:
+
     app/design/frontend/[rwd|base|your package]/[default|your theme]/template/contacts/form.phtml
- 
+
  place the following line into the form, anywhere between ```<ul class="form-list">``` and closing ```<ul>``` elements in the form
 
     <?php echo $this->getChildHtml('recaptcha'); ?>
@@ -197,14 +197,14 @@ The captcha extension places the form data into the customer session, aptly name
     $data = $controller->getRequest()->getPost();
     Mage::getSingleton('customer/session')->setFormData($data);
 
-You can re-populate the form data using the information stored in the session. 
-This will require you to make some changes to the form.phtml file. 
+You can re-populate the form data using the information stored in the session.
+This will require you to make some changes to the form.phtml file.
 It is really up to you how you will retrieve and use the session data.
 As an example, you can do this at the top of the template form.phtml:
 
     $formData = new Varien_Object();
     $formData->setData(Mage::getSingleton('customer/session')->getFormData());
-   
+
 The posted data is now held in the Varien Object called $formData
 You can pre-populate the data as such:
 
@@ -212,7 +212,7 @@ You can pre-populate the data as such:
     $_lastname = ($formData->getLastname())?$formData->getLastname():$this->helper('contacts')->getLastName();
     $_email = ($formData->getEmail())?$formData->getEmail():$this->helper('contacts')->getEmail();
     $_telephone = ($formData->getTelephone())?$formData->getTelephone():'';
-    $_suburb = ($formData->getSuburb())?$formData->getSuburb():'';  
+    $_suburb = ($formData->getSuburb())?$formData->getSuburb():'';
     $_postcode = ($formData->getPostcode())?$formData->getPostcode():'';
     $_comment = ($formData->getComment())?$formData->getComment():'';
 
@@ -277,10 +277,10 @@ Use in Checkout OnePage
 -----------------------
 
 Selecting 'Checkout as Guest' or 'Register at checkout' no longer has a ny difference in the outcome of checkout reCaptcha
-If EITHER is selected, you will have an active reCapctha at the BILLING section. 
+If EITHER is selected, you will have an active reCapctha at the BILLING section.
 This is due to how invisible reCacptha works on the page, and I currently see no need to make this work individually
 
-Use in CMS Page
+Use Contact Form in CMS Page
 ----------------
 
 You can Place the Contact Us form within a CMS page using the following Block notation:
@@ -297,20 +297,20 @@ Product Review Captcha
 * Enable in admin under Customer Configuration by selecting 'reviews' in available forms list
 * Unfortunately the core product review form does not have an after form elements block, so you will need to adjust your reviews form to display the captcha.
 
- Edit the reviews form located here: 
- 
+ Edit the reviews form located here:
+
     app/design/frontend/[rwd|base|your package]/[default|your theme]/template/review/form.phtml
- 
- place the following line into the form, anywhere between the form elements. 
+
+ place the following line into the form, anywhere between the form elements.
 
     <ul>
         <?php echo $this->getChildHtml('recaptcha'); ?>
     </ul>
-    
+
 Customer Wishlist Sharing Captcha
 -------------------------
 
-The core functionality can easily be used to produce spam. 
+The core functionality can easily be used to produce spam.
 The process is that an account is created, then a product is added, then spam is generated via the share functionality, with spam messages in the message field.
 Adding reCaptcha allows you to block this.
 
@@ -318,7 +318,7 @@ Adding reCaptcha allows you to block this.
 ** Magento introduced wishlist capctha from 1.9.4, or with SUPEE 10975 **
 
 The custom wishlist recaptcha code of this module was removed, favouring the core functionality.
-If you require wishlist recapctha in pre 1.9.4 without SUPEE-10975, install version 2.0.1 
+If you require wishlist recapctha in pre 1.9.4 without SUPEE-10975, install version 2.0.1
 
 Product Email a Friend Captcha
 ------------------------------
@@ -326,7 +326,7 @@ Product Email a Friend Captcha
 ** Magento introduced capctha from 1.9.4, or with SUPEE 10975 **
 
 The custom recaptcha code of this module was removed, favouring the core functionality.
-If you require recapctha in pre 1.9.4 without SUPEE-10975, install version 2.0.1 
+If you require recapctha in pre 1.9.4 without SUPEE-10975, install version 2.0.1
 
 Newsletter Subscribe Captcha
 ----------------------------
@@ -336,7 +336,7 @@ With invisible recaptcha option you can limit this now, without adding extra eff
 
 To make reCaptcha appear on subscriber form/page, you need to edit this template:
 
-    app/design/frontend/[rwd|base|your package]/[default|your theme]/template/newsletter/subscribe.phtml 
+    app/design/frontend/[rwd|base|your package]/[default|your theme]/template/newsletter/subscribe.phtml
 
 Place the following code between the ```<form>``` and closing ```</form>``` elements:
 
@@ -349,20 +349,28 @@ Place the following code between the ```<form>``` and closing ```</form>``` elem
 
 Ensure options are set in admin to allow recaptcha for newsletter, and using Invisible reCaptcha is recommeded
 
+Newsletter Subscribe in CMS Page
+--------------------------------
+
+You can Place the Newsletter Subscription form within a CMS page using the following Block notation:
+
+    {{block type="proxiblue_recaptcha/subscribe" template="newsletter/subscribe.phtml"}
+
+Remember to add the custom block to your allowed blocks in System->Permissions->Blocks. Use ```proxiblue_recaptcha/subscribe```
 
 Captcha is still not appearing, even after I did the steps above!
 -----------------------------------------------------------------
 
 Some possibilities:
 
-* You are using a custom theme package, and the reCaptcha layout directive file is not loaded. 
-* You are using a custom theme and the fallback to the base theme is not picking up the layout file. 
+* You are using a custom theme package, and the reCaptcha layout directive file is not loaded.
+* You are using a custom theme and the fallback to the base theme is not picking up the layout file.
 
-To fix this, simply copy the file 
+To fix this, simply copy the file
 
     app/design/frontend/base/default/layout/proxiblue_recaptcha.xml
 
-to your package or theme folder, which will be located something like such: 
+to your package or theme folder, which will be located something like such:
 
     app/design/frontend/<PACKAGE_NAME>/<THEME NAME>/layout/proxiblue_recaptcha.xml
 
