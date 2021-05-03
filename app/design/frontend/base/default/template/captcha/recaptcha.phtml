@@ -3,6 +3,7 @@
 
 <li id="<?php echo $captcha->getElementId(); ?>">
     <div id="<?php echo $captcha->getElementId('image'); ?>" class='proxiblue-recaptcha captcha-image-box-<?php echo $this->getFormId(); ?>'></div>
+    <input style="display: none" name="<?php echo Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE ?>[<?php echo $this->getFormId()?>]" type="text" class="input-text" id="captcha_<?php echo $this->getFormId() ?>" />
 </li>
 
 <script>
