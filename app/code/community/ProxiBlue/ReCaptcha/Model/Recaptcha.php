@@ -165,6 +165,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
             . '/'
             . $path
         );
+        $httpRequest->setAdapter('Zend_Http_Client_Adapter_Curl');
         $httpRequest->setParameterPost(array_merge(array('remoteip' => $_SERVER['REMOTE_ADDR']), $params));
         $response = $httpRequest->request('POST');
         if ($response->getStatus() != 200) {
