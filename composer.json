@@ -4,7 +4,7 @@
   "license": "OSL-3.0",
   "homepage": "https://github.com/ProxiBlue/reCaptcha",
   "description": "Clean integration of Google reCaptcha to OpenMage",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "authors": [
     {
       "name": "Lucas van Staden",
