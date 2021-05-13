@@ -132,6 +132,7 @@
                 <theme>invisible</theme>
                 <position>bottomright</position>
                 <language>en</language>
+                <adapter>Zend_Http_Client_Adapter_Socket</adapter>
                 <mode>always</mode>
                 <always_for>
                     <user_create>1</user_create>

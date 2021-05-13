@@ -36,6 +36,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     protected $_private_key = null;
     protected $_public_key = null;
     protected $_position = 'bottomright';
+    protected $_adapter = 'Zend_Http_Client_Adapter_Socket';
     protected $_originalFormId = '';
     protected $_forms = [];
 
@@ -71,6 +72,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
         $this->_private_key = $this->_getHelper()->getConfigNode('private_key');
         $this->_public_key = $this->_getHelper()->getConfigNode('public_key');
         $this->_position = $this->_getHelper()->getConfigNode('position');
+        $this->_adapter = $this->_getHelper()->getConfigNode('adapter');
         $this->_debugEnabled = Mage::getStoreConfigFlag('customer/captcha/debug');
     }
 
@@ -97,6 +99,11 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
     public function getPublicKey()
     {
         return $this->_public_key;
+    }
+
+    public function getAdapter()
+    {
+        return $this->_adapter;
     }
 
     public function isCorrect($word)
@@ -165,6 +172,7 @@ class ProxiBlue_ReCaptcha_Model_Recaptcha extends Mage_Captcha_Model_Zend implem
             . '/'
             . $path
         );
+        $httpRequest->setAdapter($this->getAdapter());
         $httpRequest->setParameterPost(array_merge(array('remoteip' => $_SERVER['REMOTE_ADDR']), $params));
         $response = $httpRequest->request('POST');
         if ($response->getStatus() != 200) {
