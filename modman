@@ -3,4 +3,4 @@ app/code/community/ProxiBlue/ReCaptcha/    app/code/community/ProxiBlue/ReCaptch
 app/design/adminhtml/default/default/template/captcha/recaptcha.phtml  app/design/adminhtml/default/default/template/captcha/recaptcha.phtml
 app/design/frontend/base/default/layout/proxiblue_recaptcha.xml app/design/frontend/base/default/layout/proxiblue_recaptcha.xml
 app/design/frontend/base/default/template/captcha/recaptcha.phtml   app/design/frontend/base/default/template/captcha/recaptcha.phtml
-proxyblue/* js/proxyblue
+js/proxiblue/recaptcha/prototype.js   js/proxiblue/recaptcha/prototype.js
