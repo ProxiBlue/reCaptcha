@@ -74,6 +74,14 @@
                     </captcha_register>
                 </observers>
             </controller_action_predispatch_checkout_onepage_savebilling>
+            <controller_action_layout_render_before>
+                <observers>
+                    <fixPrototypeVersion>
+                        <class>proxiblue_recaptcha/observer</class>
+                        <method>fixPrototypeVersion</method>
+                    </fixPrototypeVersion>
+                </observers>
+            </controller_action_layout_render_before>
         </events>
     </global>
     <adminhtml>
@@ -94,16 +102,6 @@
         </translate>
     </adminhtml>
     <frontend>
-        <events>
-            <controller_action_layout_render_before>
-                <observers>
-                    <fixPrototypeVersion>
-                        <class>proxiblue_recaptcha/observer</class>
-                        <method>fixPrototypeVersion</method>
-                    </fixPrototypeVersion>
-                </observers>
-            </controller_action_layout_render_before>
-        </events>
         <layout>
             <updates>
                 <proxiblue_recaptcha>
