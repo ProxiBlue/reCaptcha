@@ -88,17 +88,7 @@ Using composer package:
 In the root of your OpenMage install, run the following commands:
 
 ```
-composer config --global --auth http-basic.github.repo.repman.io token ec42f7dd9269f0d9355f94279d221d3f07c4f8c70c9344a1ef27ddbc0a07a8d6
-```
-
-Add these lines to your composer.json file, or add a new repository URL if you already have one or more:
-
-```
-{
-    "repositories": [
-        {"type": "composer", "url": "https://github.repo.repman.io"}
-    ]
-}
+composer config repositories.github.repo.repman.io composer https://github.repo.repman.io
 ```
 
 Disabling:
