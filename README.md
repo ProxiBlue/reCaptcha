@@ -36,8 +36,6 @@ changes to core functionality, and allows your developer to integrate into your 
 Installing
 ==========
 
-VERSIONS:
---------
 
 **ATTENTION:**
 
@@ -71,6 +69,8 @@ There is no clean fix for this.
 
 Alternatively you can disable admin login reCapctha (and secure your admin via 2fa and firewall access) OR you can simply replace the core prototype file with an updated version of 1.7.1 (ie copy the prodiblue version over the core version, and use that)
 
+VERSIONS:
+--------
 
 If you have magento 1.9.4, *OR* you have Magento < 1.9.4 + SUPEE 10975 patch installed, you must use release 2.1.x or greater.
 If you have Magento < 1.9.4 and not pacthed with SUPEE 10975, then you must use version 2.0.1 (the most up-to-date version prior to 1.9.4 and SUPEE 10975 patch)
