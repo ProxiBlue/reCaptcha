@@ -5,6 +5,9 @@ Drop-In Replacement of OpenMage core Captcha system with Googles reCaptcha
 
 http://www.proxiblue.com.au/blog/magento-recaptcha/
 
+Features: 
+=========
+
 * Supports all native OpenMage captcha areas
 * Supports placing captcha into
 
@@ -34,7 +37,16 @@ Installing
 ==========
 
 VERSIONS:
-=========
+--------
+
+**ATTENTION:**
+
+Since 17/06/2021 google changed their invisible recaptcha code, which makes it incompatibile with the core version of prototype 1.7.0 which ships with vanilla magento 1. (ref: https://github.com/ProxiBlue/reCaptcha/issues/56 )
+This module has been adjusted to include prototype 1.7.1 as of version 2.5.1 (least compatible version required to fix issue) - Thank you to @empiricompany for this fix.
+You can see the adjsuted code in PR: https://github.com/ProxiBlue/reCaptcha/pull/57
+
+OpenMage 19.4.12 (or the 20.x range) already ships with an updated version of Prototype. You *should* really be sporting that update on a live site.
+
 
 If you have magento 1.9.4, *OR* you have Magento < 1.9.4 + SUPEE 10975 patch installed, you must use release 2.1.x or greater.
 If you have Magento < 1.9.4 and not pacthed with SUPEE 10975, then you must use version 2.0.1 (the most up-to-date version prior to 1.9.4 and SUPEE 10975 patch)
