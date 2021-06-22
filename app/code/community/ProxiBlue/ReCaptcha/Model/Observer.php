@@ -10,6 +10,31 @@
 class ProxiBlue_ReCaptcha_Model_Observer
 {
     /**
+     * Fix Incompatibility Google Recaptcha With Prototype 1.7
+     */
+    public function fixPrototypeVersion() {
+        // Prototype update only in OpenMage from version 19.4.12
+        if(method_exists('Mage', 'getOpenMageVersion')) {
+            if (version_compare( Mage::getOpenMageVersion() , '19.4.12', '>=')){
+                return $this;
+            }
+        }
+        
+        $head = Mage::app()->getLayout()->getBlock('head');
+        if (!$head) {
+            return $this;
+        }
+        $headItems = $head->getData('items');
+        if ( isset($headItems['js/prototype/prototype.js']) ) {
+            $headItems['js/prototype/prototype.js']['name'] = 'proxiblue' . DS . 'recaptcha' . DS . 'prototype.js';
+            $head->setData('items', $headItems);
+        }
+
+        return $this;
+
+    }
+    
+    /**
      * Check Captcha On Contact Us
      *
      * @param Varien_Event_Observer $observer
