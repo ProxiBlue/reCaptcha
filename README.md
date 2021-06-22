@@ -47,6 +47,30 @@ You can see the adjsuted code in PR: https://github.com/ProxiBlue/reCaptcha/pull
 
 OpenMage 19.4.12 (or the 20.x range) already ships with an updated version of Prototype. You *should* really be sporting that update on a live site.
 
+**ADMIN LOGIN NEEDS MANUAL INTERVENTION**
+
+Core magento hardcoded the inclusion of the default prototype 1.7.0 in the following admin files:
+
+```
+app/design/adminhtml/default/default/template/resetforgottenpassword.phtml
+app/design/adminhtml/default/default/template/login.phtml
+app/design/adminhtml/default/default/template/forgotpassword.phtml
+```
+
+You need to manually adjust these files to change the line: 
+
+```
+<script type="text/javascript" src="<?php echo $this->getJsUrl('prototype/prototype.js') ?>"></script>
+```
+to
+```
+<script type="text/javascript" src="<?php echo $this->getJsUrl('proxiblue/recaptcha/prototype.js') ?>"></script>
+```
+
+There is no clean fix for this.
+
+Alternatively you can disable admin login reCapctha (and secure your admin via 2fa and firewall access) OR you can simply replace the core prototype file with an updated version of 1.7.1 (ie copy the prodiblue version over the core version, and use that)
+
 
 If you have magento 1.9.4, *OR* you have Magento < 1.9.4 + SUPEE 10975 patch installed, you must use release 2.1.x or greater.
 If you have Magento < 1.9.4 and not pacthed with SUPEE 10975, then you must use version 2.0.1 (the most up-to-date version prior to 1.9.4 and SUPEE 10975 patch)
